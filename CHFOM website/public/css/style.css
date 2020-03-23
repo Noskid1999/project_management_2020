@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Pristina";
+  src: url("fonts/pristina.ttf");
+}
+@font-face {
+  font-family: "Poppins_Bold";
+  src: url("fonts/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: "Poppins_Regular";
+  src: url("fonts/Poppins-Regular.ttf");
+}
+
+* {
+  font-family: "Poppins_Regular";
+  color: #000;
+  box-sizing: border-box;
+  margin: 0;
+}
+svg {
+  overflow: visible;
+}

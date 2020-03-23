@@ -1,0 +1,114 @@
+.navbar {
+  background-color: #ffffff;
+  height: 76px;
+}
+/* Font size for navbar items */
+.navbar a.nav-link {
+  font-size: 1.25rem;
+}
+/* Fixed width for responsive effect */
+@media screen and (min-width: 1440px) {
+  .navbar .navbar-collapse {
+    max-width: 1440px;
+  }
+}
+/* Hover Animations */
+.navbar a:hover {
+  color: #ff0000 !important;
+  transition-duration: 0.15s;
+}
+.navbar a:hover svg g * {
+  stroke: #ff0000;
+  transition-duration: 0.15s;
+}
+.navbar a:hover svg g#person * {
+  fill: #ff0000;
+}
+.mobile-nav {
+  width: 100%;
+  display: none;
+  top: 0;
+}
+.mobile-img {
+  display: none;
+}
+.navbar-toggler {
+  width: 56px;
+}
+.navbar .close-sidebar {
+  display: none;
+}
+@media screen and (max-width: 991px) {
+  .navbar {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .mobile-nav {
+    display: block;
+    z-index: 1019;
+    height: 76px;
+    background-color: #ffffff;
+  }
+  .mobile-nav .nav-container {
+    display: flex !important;
+    width: 100%;
+  }
+  .mobile-nav ul {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+@media screen and (max-width: 500px) {
+  .web-img {
+    display: none;
+  }
+  .mobile-img {
+    display: inline;
+  }
+}
+.side-navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  z-index: 99999;
+  background: #79caca;
+  transition-duration: 0.5s;
+  left: -100%;
+}
+.side-navbar.show {
+  left: 0;
+  transition-duration: 0.5s;
+}
+.side-navbar a {
+  color: #ffffff;
+}
+.side-navbar .navbar-collapse {
+  display: flex !important;
+  flex-direction: column;
+  position: relative;
+}
+.side-navbar .navbar-brand {
+  width: 100% !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.side-navbar .navbar-icons {
+  flex-direction: row;
+}
+.side-navbar .navbar-icons .nav-item {
+  padding: 0.5rem;
+}
+.side-navbar .nav-item:hover a {
+  color: #ff0000;
+  background-color: #ffffff;
+}
+/* @media (min-width: 1040px) {
+  .container,
+  .container-md,
+  .container-sm {
+    max-width: 100%;
+  }
+} */
