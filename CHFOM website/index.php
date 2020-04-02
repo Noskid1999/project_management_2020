@@ -7,6 +7,9 @@ $router = new Router(new Request);
 $router->get('/', function ($request) {
   includeWithVariables('main.php', array('user' => 'dikson'));
 });
+$router->get('/login', function ($request) {
+  includeWithVariables('login.php');
+});
 
 
 $router->get('/profile', function ($request) {
