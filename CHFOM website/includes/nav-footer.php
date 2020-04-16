@@ -1,6 +1,6 @@
 <footer>
     <div class="footer-nav">
-        <div class="container">
+        <div class="container-sm">
             <div class="row">
                 <div class="col-md-4">
                     <div class="brand-container">
@@ -47,26 +47,26 @@
                         <h4>CONTACTS</h4>
                     </div>
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-2">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <div class="col-11">
+                        <div class="col-10">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-2">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <div class="col-11">
+                        <div class="col-10">
                             123456789
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-2">
                             <i class="far fa-envelope"></i>
                         </div>
-                        <div class="col-11">
+                        <div class="col-10">
                             test@test.com
                         </div>
                     </div>
@@ -77,14 +77,14 @@
     <div class="footer-bar">
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-sm-4">
                     © 2020 Cleckhudderfax Online Megastore.
                     All Rights Reserved.
                 </div>
-                <div class="col-4" style="font-size: 2.5rem;text-align:center;">
+                <div class="col-sm-4" style="font-size: 2.5rem;text-align:center;">
                     <i class="fab fa-cc-paypal"></i>
                 </div>
-                <div class="col-4" style="display: flex;align-items: center;">
+                <div class="col-sm-4" style="display: flex;align-items: center;">
                     <a href="#">Privacy Policy</a>
                 </div>
             </div>

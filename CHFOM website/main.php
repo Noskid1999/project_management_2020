@@ -213,7 +213,6 @@
                 </div>
 
             </div>
-            </div>
         </section>
     </main>
     <?php

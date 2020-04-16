@@ -7,24 +7,21 @@
     </a>
     <ul class="navbar-nav mt-2 mt-lg-0" style="text-align: center;width:100%">
         <li class="nav-item">
-            <a class="nav-link" href="#">HOME</a>
+            <a class="nav-link nav-text" href="#">HOME</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">PAGES</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">CATEGORY</a>
+            <a class="nav-link nav-text" href="#">CATEGORY</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">SHOP</a>
+            <a class="nav-link nav-text" href="#">SHOP</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">PROFILE</a>
+            <a class="nav-link nav-text" href="#">PROFILE</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">ABOUT US</a>
+            <a class="nav-link nav-text" href="#">ABOUT US</a>
         </li>
     </ul>
     <ul class="navbar-nav mt-2 mt-lg-0 navbar-icons" style="text-align: right;">

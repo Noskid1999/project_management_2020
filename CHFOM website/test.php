@@ -3,7 +3,7 @@
 include_once 'Request.php';
 include_once 'Router.php';
 $router = new Router(new Request);
-
+// php -S 127.0.0.1:8000
 $router->get('/', function ($request) {
   includeWithVariables('main.php', array('user' => 'dikson'));
 });

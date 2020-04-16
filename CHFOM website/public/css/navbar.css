@@ -13,6 +13,14 @@
   }
 }
 /* Hover Animations */
+.navbar a.nav-text:after{
+  display:block;
+  content: '';
+  border-bottom: solid 3px #019fb6;  
+  transform: scaleX(0);  
+  transition: transform 150ms ease-in-out;
+}
+.navbar a.nav-text:hover:after { transform: scaleX(1); }
 .navbar a:hover {
   color: #ff0000 !important;
   transition-duration: 0.15s;
