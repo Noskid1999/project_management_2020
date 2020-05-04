@@ -1,0 +1,228 @@
+form .navbar-brand img {
+  height: 70%;
+  width: 70%;
+}
+.login-button {
+  background-color: #dedccb;
+  font-size: 20px;
+  border: 0;
+  line-height: 48px;
+}
+.navbar {
+  background-color: #f9f9f9;
+}
+.vector img {
+  height: 90%;
+  width: 90%;
+}
+.main-card {
+  flex-direction: row;
+}
+.signup-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.sup {
+  width: 700px;
+}
+.avatar {
+  width: 100px;
+}
+.row {
+  margin: 25px 0;
+}
+.sinput-div {
+  position: relative;
+  display: grid;
+  grid-template-columns: 45px calc(100% - 45px);
+  padding: 5px 0;
+  border-bottom: 2px solid #d9d9d9;
+}
+.sinput-div::after,
+.sinput-div::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #f1e30b;
+  transition: 0.3s;
+}
+.sinput-div::after {
+  right: 50%;
+}
+.sinput-div::before {
+  left: 50%;
+}
+form .input-field {
+  position: relative;
+}
+form .input-field .error-mark {
+  position: absolute;
+  top: 25%;
+  right: 1rem;
+  font-size: 1.5em;
+  color: #ec1f12;
+}
+form .input-field .error-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  font-size: .8rem;
+}
+.sinput-div.focus .i i {
+  color: #f1e30b;
+}
+.sinput-div.focus div h5 {
+  top: -5px;
+  font-size: 15px;
+}
+.sinput-div.focus::after,
+.sinput-div.focus::before {
+  width: 50%;
+}
+.i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.i i {
+  color: #d9d9d9;
+  transition: 0.3s;
+}
+.sinput-div > div {
+  position: relative;
+  height: 45px;
+}
+.sinput-div > div h5 {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.sinput {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  color: #555;
+  font-family: "Poppins", sans-serif;
+}
+.signup-container > form > p,
+.signup-container > form > p > a {
+  font-size: large;
+}
+.signup-container > form > p > a {
+  text-decoration: none;
+  color: #32be8f;
+  transition: 0.3s;
+}
+.signup-container > form > p > a:hover {
+  color: #f1e30b;
+}
+.sbtn {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  background-image: linear-gradient(to right, #ebce04, #f1e30b, #ebce04);
+  cursor: pointer;
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  background-size: 200%;
+  transition: 0.5s;
+}
+.sbtn:hover {
+  background-position: right;
+}
+.sbtn-google {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+  cursor: pointer;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  background-size: 200%;
+  transition: 0.5s;
+}
+.sbtn-google:hover {
+  background-position: right;
+}
+.sbtn-google > img {
+  margin-right: 10px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border-radius: 50%;
+}
+.or-container {
+  position: relative;
+}
+.or:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 52%;
+  width: 170px;
+  height: 2px;
+  background-color: #999;
+}
+.or:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  width: 170px;
+  height: 2px;
+  background-color: #999;
+}
+@media only screen and (max-width: 765px) {
+  .vector {
+    display: none;
+  }
+  .sbtn-google {
+    font-size: 1rem;
+  }
+  .or:before,
+  .or:after {
+    display: none;
+  }
+  .card-body {
+    margin: 5px !important;
+  }
+}
+/* For Form Control */
+.form-control:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+.tooltip-inner {
+  max-width: 400px;
+  /* If max-width does not work, try using width instead */
+  width: 400px;
+}

@@ -1,3 +1,6 @@
+<?php
+@include_once("../core/global_constants.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +15,6 @@
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="public/css/navbar.css">
     <link rel="stylesheet" href="public/css/nav-footer.css">
+    <link rel="stylesheet" href="public/css/main.css">
     <title>Cleckhudderfax Online Megastore</title>
 </head>
-

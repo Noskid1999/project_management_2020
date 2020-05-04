@@ -1,6 +1,6 @@
 section.shop-carousel {
   min-height: 400px;
-  background: url("../img/shop.jpeg");
+  background: url("../img/shop-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -257,7 +257,7 @@ div[data-toggle="toggle"] {
 }
 @media screen and (max-width: 768px) {
   section.shop-carousel {
-    background: url("../img/shop-768px.jpeg");
+    background: url("../img/shop-bg.jpg");
   }
 }
 @media screen and (max-width: 576px) {
@@ -266,7 +266,7 @@ div[data-toggle="toggle"] {
   }
 
   section.shop-carousel {
-    background: url("../img/shop-576px.jpeg");
+    background: url("../img/shop-bg.jpg");
   }
   #filter-data #prod-filter .content {
     top: calc(76px + 50px + 50px + 50px);

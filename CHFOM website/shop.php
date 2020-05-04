@@ -1,13 +1,13 @@
 <?php
 @include("includes/header.php");
 ?>
-<link rel="stylesheet" href="public/css/main.css">
 <link rel="stylesheet" href="public/css/shop.css">
-<?php
-@include("includes/navbar.php");
-?>
 
 <body>
+
+  <?php
+  @include("includes/navbar.php");
+  ?>
 
   <section class="shop-carousel">
     <div class="header-container">
@@ -173,15 +173,14 @@
       </div>
     </div>
   </section>
+
+  <?php
+  @include("includes/nav-footer.php");
+  ?>
+
+  <script src="public/js/others/jquery-ui.js"></script>
+  <script src="public/js/search.js"></script>
 </body>
-
-<?php
-@include("includes/nav-footer.php");
-?>
-
-<script src="public/js/others/jquery-ui.js"></script>
-<script src="public/js/search.js"></script>
-
 <?php
 @include("includes/footer.php");
 ?>

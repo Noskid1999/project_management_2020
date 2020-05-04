@@ -1,7 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<div class="navbar-expand-lg navbar-toggler-container navbar-light">
     <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+
     <?php
     @include("main-navbar.php");
     ?>
@@ -14,22 +17,9 @@
                 <img class="mobile-img" src="public/img/logo/CHFOM logo.png" alt="" style="height: 60px;">
             </a>
             <ul class="navbar-nav" style="text-align: right;">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <?php echo file_get_contents("public/img/svg/search.svg"); ?>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <?php echo file_get_contents("public/img/svg/cart.svg"); ?>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <?php echo file_get_contents("public/img/svg/person.svg"); ?>
-                    </a>
-                </li>
-                </li>
+                <?php
+                @include("nav-svg.php");
+                ?>
             </ul>
         </div>
     </div>
@@ -39,3 +29,7 @@
     @include("main-navbar.php");
     ?>
 </div>
+
+<?php
+@include("includes/search-modal.php");
+?>

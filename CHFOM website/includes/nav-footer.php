@@ -1,9 +1,9 @@
 <footer>
-    <div class="footer-nav">
+    <div class="footer-nav pb-3">
         <div class="container-sm">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="brand-container">
+                    <div class="brand-container d-none">
                         <img src="public/img/logo/CHFOM logo with Text.png" alt="" style="height: 60px;">
                     </div>
                     <div class="short-description">
@@ -21,8 +21,10 @@
                     </div>
                 </div>
                 <div class="col-md-4 links">
-                    <div class="header">
-                        <h4>LINKS</h4>
+                    <div class="row">
+                        <div class="col-12 header">
+                            <h4>LINKS</h4>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -43,8 +45,10 @@
                     </div>
                 </div>
                 <div class="col-md-4 contacts">
-                    <div class="header">
-                        <h4>CONTACTS</h4>
+                    <div class="row">
+                        <div class="col-12 header">
+                            <h4>CONTACTS</h4>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-2">

@@ -1,6 +1,13 @@
 .navbar {
   background-color: #ffffff;
   height: 76px;
+  z-index: 1018;
+}
+.navbar-toggler-container {
+  position: fixed;
+  left: 25px;
+  top: 20px;
+  z-index: 1021;
 }
 /* Font size for navbar items */
 .navbar a.nav-link {
@@ -13,14 +20,16 @@
   }
 }
 /* Hover Animations */
-.navbar a.nav-text:after{
-  display:block;
-  content: '';
-  border-bottom: solid 3px #019fb6;  
-  transform: scaleX(0);  
+.navbar a.nav-text:after {
+  display: block;
+  content: "";
+  border-bottom: solid 3px #019fb6;
+  transform: scaleX(0);
   transition: transform 150ms ease-in-out;
 }
-.navbar a.nav-text:hover:after { transform: scaleX(1); }
+.navbar a.nav-text:hover:after {
+  transform: scaleX(1);
+}
 .navbar a:hover {
   color: #ff0000 !important;
   transition-duration: 0.15s;
@@ -111,7 +120,7 @@
 }
 .side-navbar .nav-item:hover a {
   color: #ff0000;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
 }
 /* @media (min-width: 1040px) {
   .container,
@@ -120,3 +129,24 @@
     max-width: 100%;
   }
 } */
+
+/*----------------------------------------------------------------------- 
+  Search Modal
+  -----------------------------------------------------------------------
+*/
+.search-modal > .modal-dialog {
+  min-width: 90% !important;
+}
+.search-modal .form-control {
+  border: 0;
+  border-bottom: 1px solid #495057;
+}
+.search-modal .form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0);
+
+  border-bottom: 1px solid #495057;
+  outline: 0;
+  box-shadow: none;
+}

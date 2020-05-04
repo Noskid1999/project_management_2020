@@ -1,0 +1,48 @@
+#small-img-container .col-4 {
+  overflow: hidden;
+}
+#small-img-container .col-4:hover {
+  cursor: pointer;
+}
+#small-img-container .col-4 img {
+  transition-duration: 0.5s;
+}
+#small-img-container .col-4:hover img {
+  -webkit-box-shadow: 0px 0px 2px -2px rgba(255, 193, 7, 0.75);
+  -moz-box-shadow: 0px 0px 2px -2px rgba(255, 193, 7, 0.75);
+  box-shadow: 0px 0px 15px -5px rgba(255, 193, 7, 0.75);
+  transform: scale(1.5);
+  transition-duration: 0.5s;
+}
+#product-amount-input {
+  height: 4rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+}
+#product-amount-input:focus {
+  box-shadow: none;
+}
+#add-product-amount,
+#subtract-product-amount {
+  position: absolute;
+  border: 1px solid #ced4da;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: #495057;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#add-product-amount:hover,
+#subtract-product-amount:hover {
+  cursor: pointer;
+}
+#add-product-amount {
+  top: 0;
+}
+#subtract-product-amount {
+  bottom: 0;
+}
