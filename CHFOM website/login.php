@@ -114,6 +114,9 @@ include_once("includes/header.php");
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">SIGN IN</button>
                             </div>
+                            <form-group>
+                                <p class=" text-white text-center">Don't have a account? <a class=" text-info" href="/signup-form.php"> Register</a></p>
+                            </form-group>
                             <div class="form-group forgot-pwd-container">
                                 <a href="/reset-password.php">FORGOT PASSWORD?</a>
                             </div>

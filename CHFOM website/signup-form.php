@@ -9,11 +9,17 @@ require_once('core/send-mail.php');
 // $res = $db->execFetchAll($sql, "test12313");
 // var_dump($res);
 $error = array();
-$fname = $lname = $email   = $password = $cpassword = $pnumber = $address = $vat_number = "";
+$fname = $lname = $email   = $password = $cpassword = $pnumber = $address = $vat_number = $trader_type = $trader_description = "";
 $trader_check = "false";
 $valid = true;
 $user_exists = false;
-$success_message = $failure_message = "";
+if (!isset($_SESSION['success_message'])) {
+    $success_message = $failure_message = "";
+} else {
+    $success_message = ($_SESSION['success_message']);
+    unset($_SESSION['success_message']);
+    $failure_message = "";
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST)) {
         $fname = clean_input($_POST["first_name"]);
@@ -56,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $valid = false;
         }
         if (empty($address)) {
-            $error['email'] = "Empty Email";
+            $error['address'] = "Empty Address";
             $valid = false;
         }
         if (empty($password)) {
@@ -104,9 +110,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         if ($trader_check == "true") {
-            $vat_number = $_POST['vat_registration_number'];
+            $vat_number = clean_input($_POST['vat_registration_number']);
+            $trader_type = clean_input($_POST['trader_type']);
+            $trader_description = clean_input($_POST['trader_description']);
             if (empty($vat_number)) {
                 $error['vat_registration_number'] = "Empty VAT Registration Number";
+                $valid = false;
+            }
+            if (empty($trader_type)) {
+                $error['trader_type'] = "Empty Trader Type";
+                $valid = false;
+            }
+            if (empty($trader_description)) {
+                $error['trader_description'] = "Empty Trader Description";
                 $valid = false;
             }
         }
@@ -121,9 +137,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($valid && !$user_exists) {
             $password = md5($password);
-            $sql = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL,PASSWORD, PHONE_NUMBER,ADDRESS) 
+            if ($trader_check == "false") {
+                $sql = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL,PASSWORD, PHONE_NUMBER,ADDRESS) 
                         VALUES('$fname','$lname','$email','$password','$pnumber','$address')
                         RETURNING USER_ID,EMAIL INTO :id,:email ";
+            } else {
+                $sql = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL,PASSWORD, PHONE_NUMBER,ADDRESS,USER_TYPE) 
+                        VALUES('$fname','$lname','$email','$password','$pnumber','$address','TRADER')
+                        RETURNING USER_ID,EMAIL INTO :id,:email ";
+            }
             $res = $db->execute($sql, "INSERT user", array(
                 array(":id", NULL, 50),
                 array(":email", NULL, 250)
@@ -132,22 +154,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $validation_token = substr(md5(time()), 0, 24);
                 $user_id = $res['data']['id'];
                 $email = $res['data']['email'];
-                $sql = "INSERT INTO validation_token(User_id, Validation_token) VALUES ($user_id, '$validation_token')";
-                $res = $db->execute($sql, "INSERT validation token");
+                if ($trader_check == "false") {
+                    $sql = "INSERT INTO CUSTOMER(USER_ID) VALUES ($user_id)";
+                    $res = $db->execute($sql, "INSERT INTO user_type");
+                } else {
+                    $sql = "INSERT INTO TRADER(USER_ID,VAT_REGISTRATION_NUMBER) VALUES ($user_id,'$vat_number')
+                            RETURNING TRADER_ID INTO :trader_id";
+                    $res = $db->execute($sql, "INSERT INTO user_type", array(
+                        array(":trader_id", NULL, 50)
+                    ));
+                    if ($res['success']) {
+                        if ($trader_check == "true") {
+                            $trader_id = $res['data']['trader_id'];
+                            $sql = "INSERT INTO trader_type(TRADER_ID, TYPE, DESCRIPTION) VALUES ($trader_id,'$trader_type','$trader_description')";
+                            $response = $db->execute($sql, "INSERT trader type");
+                            $res['success'] = $response['success'];
+                        }
+                    }
+                }
                 if ($res['success']) {
-                    $data = array(
-                        'email_address' => $email,
-                        'mail_type' => 'VERIFICATION',
-                        'user_id' => $user_id,
-                        'validation_token' => $validation_token
-                    );
-                    if (send_mail($data)) {;
-                        $success_message = "Thank you for registering with us. Please check your mail to validate this account.";
+                    $sql = "INSERT INTO validation_token(User_id, Validation_token) VALUES ($user_id, '$validation_token')";
+                    $res = $db->execute($sql, "INSERT validation token");
+                    if ($res['success']) {
+                        $data = array(
+                            'email_address' => $email,
+                            'mail_type' => 'VERIFICATION',
+                            'user_id' => $user_id,
+                            'validation_token' => $validation_token
+                        );
+                        if (send_mail($data)) {;
+                            $success_message = "Thank you for registering with us. Please check your mail to validate this account.";
+                            $_SESSION['success_message'] = $success_message;
+                            header("Location:" . htmlspecialchars($_SERVER["PHP_SELF"]));
+                        } else {
+                            $failure_message = "Validation email send fail.";
+                        }
                     } else {
-                        $failure_message = "Validation email send fail.";
+                        $failure_message = "Validation token insert failed.";
                     }
                 } else {
-                    $failure_message = "Validation token insert failed.";
+                    $failure_message = "Failure to create user type.";
                 }
             } else {
                 $failure_message = "Failed to create user. Please try again later.";
@@ -339,13 +385,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-check text-left" style="font-size: 1.2rem;">
-                                    <input type="checkbox" class="form-check-input" id="trader_check" name="trader_check" value="true">
+                                    <input type="checkbox" class="form-check-input" id="trader_check" name="trader_check" value="true" <?php if ($trader_check == "true") {
+                                                                                                                                            echo ("checked");
+                                                                                                                                        } ?>>
                                     <label class="form-check-label" for="trader_check">Work As a Trader</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 input-field d-none" id="vat_registration_number">
+                        <div class="row d-none">
+                            <div class="col-12 input-field" id="vat_registration_number">
                                 <div class="sinput-div two">
                                     <div class="i">
                                         <i class="far fa-id-badge"></i>
@@ -364,11 +412,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                             </div>
                         </div>
+                        <div class="row d-none">
+                            <div class="col-12 input-field" id="trader_type">
+                                <div class="sinput-div two">
+                                    <div class="i">
+                                        <i class="far fa-id-badge"></i>
+                                    </div>
+                                    <div>
+                                        <h5>Trader Type</h5>
+                                        <input type="text" class="sinput" name="trader_type" value="<?php echo $trader_type; ?>" />
+                                    </div>
+                                </div>
+                                <?php
+                                if (array_key_exists("trader_type", $error)) {
+                                    echo ('<div class="error-mark text-danger">
+                                <i class="fas fa-exclamation-circle text-danger"></i>
+                                </div><div class="error-text text-danger">' . $error["trader_type"] . '</div>');
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row d-none">
+                            <div class="col-12 input-field" id="trader_description">
+                                <div class="sinput-div two">
+                                    <div class="i h-100">
+                                        <i class="far fa-id-badge"></i>
+                                    </div>
+                                    <div style="height: 90px;">
+                                        <h5>Trader Description</h5>
+                                        <textarea name="trader_description" class="sinput" id="" cols="30" rows="3" style="resize: none;" value="<?php echo $trader_description; ?>"></textarea>
+                                    </div>
+                                </div>
+                                <?php
+                                if (array_key_exists("trader_description", $error)) {
+                                    echo ('<div class="error-mark text-danger">
+                                <i class="fas fa-exclamation-circle text-danger"></i>
+                                </div><div class="error-text text-danger">' . $error["trader_description"] . '</div>');
+                                }
+                                ?>
+                            </div>
+                        </div>
+
                         <input type="submit" class="sbtn" value="Register" id="register-btn" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Please enter the same password" />
                         <div class="or-container">
                             <p class="or">or</p>
                         </div>
-                        <p>Already Have and Account? <a href="/users/login"> Login</a></p>
+                        <p>Already Have an Account? <a href="/login.php"> Login</a></p>
                     </form>
                 </div>
             </div>
@@ -401,11 +490,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $("#trader_check").on("change", function() {
             var trader_check = ($("#trader_check").is(":checked"));
             if (trader_check) {
-                $("#vat_registration_number").removeClass("d-none");
+                $("#vat_registration_number").parent().removeClass("d-none");
+                $("#trader_type").parent().removeClass("d-none");
+                $("#trader_description").parent().removeClass("d-none");
             } else {
-                $("#vat_registration_number").addClass("d-none");
+                $("#vat_registration_number").parent().addClass("d-none");
+                $("#trader_type").parent().addClass("d-none");
+                $("#trader_description").parent().addClass("d-none");
             }
         })
+        var trader_check = ($("#trader_check").is(":checked"));
+        if (trader_check) {
+            $("#vat_registration_number").parent().removeClass("d-none");
+            $("#trader_type").parent().removeClass("d-none");
+            $("#trader_description").parent().removeClass("d-none");
+        } else {
+            $("#vat_registration_number").parent().addClass("d-none");
+            $("#trader_type").parent().addClass("d-none");
+            $("#trader_description").parent().addClass("d-none");
+        }
     </script>
 </body>
 <?php

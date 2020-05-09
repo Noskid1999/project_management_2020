@@ -13,7 +13,6 @@ if (isset($_SESSION['user'])) {
 }
 @include("includes/header.php");
 ?>
-<link rel="stylesheet" href="public/css/indv-product.css">
 
 <body>
     <?php
