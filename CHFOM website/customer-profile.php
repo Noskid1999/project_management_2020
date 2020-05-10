@@ -25,17 +25,17 @@ if (isset($_SESSION['user'])) {
                 <div class="col-md-3">
                     <div class="row mb-3">
                         <div class="col-12">
-                            <div class=" bg-white border border-secondary border-rounder-1_5 w-100 text-center">
+                            <div class=" bg-white border border-secondary border-rounder-1_5 w-100 text-center pt-2">
                                 <p>Hello,<br><?php echo ($user["FIRST_NAME"] . " " . $user["LAST_NAME"]); ?></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row bg-white border border-dark border-rounder-1_5 p-3 py-4">
                         <div class="col-12">
-                            <ul class=" list-unstyled">
-                                <li><a href=""><b>Manage My Account</b></a></li>
-                                <li><a href=""><b>My Orders</b></a></li>
-                                <li><a href=""><b>My Reviews</b></a></li>
+                            <ul class=" list-unstyled mb-0">
+                                <li><a href="" class="text-info">Manage My Account</a></li>
+                                <li><a href="" class="text-info">My Orders</a></li>
+                                <li><a href="" class="text-info">My Reviews</a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </div>
                     <div class="row table-responsive">
-                        <table class="table table-hover table-striped border border-light">
+                        <table class="table table-hover table-striped border bg-white">
                             <thead>
                                 <th scope="col">Order No</th>
                                 <th scope="col">Placed On</th>

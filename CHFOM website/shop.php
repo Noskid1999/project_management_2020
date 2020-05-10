@@ -142,7 +142,7 @@
       </div>
       <div class="col-10" id="prod-data">
         <!-- <div class="row" id="prod-data-output"> -->
-        <div class="product-card-container">
+        <div class="product-card-container" id="prod-data-output">
           <?php
           for ($i = 1; $i <= 50; $i++) {
           ?>
@@ -179,6 +179,7 @@
   ?>
 
   <script src="public/js/others/jquery-ui.js"></script>
+  <script src="public/js/shop.js"></script>
   <script src="public/js/search.js"></script>
 </body>
 <?php

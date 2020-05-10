@@ -125,7 +125,7 @@
         <section id="new-arrivals">
             <div class="container">
                 <div class="header-container">
-                    <h4>Latest Arrivals</h4>
+                    <h2>Latest Arrivals</h2>
                     <h1>NEW PRODUCTS</h1>
                 </div>
                 <div class="product-card-container">

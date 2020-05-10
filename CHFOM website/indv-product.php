@@ -21,13 +21,13 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img class="d-block w-100" src="public/img/about-us/few-words-carousel-1.jpg" alt="First slide">
+                                        <img class="d-block w-100" src="public/img/products/1-1.jpg" alt="First slide">
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="public/img/about-us/few-words-carousel-2.jpg" alt="Second slide">
+                                        <img class="d-block w-100" src="public/img/products/1-2.jpg" alt="Second slide">
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="public/img/about-us/few-words-carousel-3.jpg" alt="Third slide">
+                                        <img class="d-block w-100" src="public/img/products/1-3.jpg" alt="Third slide">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#img-carousel" role="button" data-slide="prev">

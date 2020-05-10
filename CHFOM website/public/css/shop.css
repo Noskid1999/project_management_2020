@@ -272,3 +272,6 @@ div[data-toggle="toggle"] {
     top: calc(76px + 50px + 50px + 50px);
   }
 }
+.pagination *{
+  color: unset;
+}
