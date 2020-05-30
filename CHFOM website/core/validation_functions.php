@@ -26,3 +26,7 @@ function validPhoneNumber($string)
 {
     return (bool) (preg_match("/^[0-9\-\(\)\/\+\s]*$/", $string));
 }
+function oracle_escape_string($str)
+{
+    return str_replace("'", "''", $str);
+}

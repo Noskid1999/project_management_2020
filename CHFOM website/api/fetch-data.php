@@ -1,13 +1,14 @@
 <?php
 require_once("../core/connection.php");
+require_once("../core/validation_functions.php");
 if (isset($_POST['action'])) {
     // Set initial query
-    $query = "SELECT * FROM product WHERE 1 ";
+    $query = "SELECT * FROM product WHERE 1=1 ";
 
     // Filter for search
     if (isset($_POST['search_param'])) {
-        $search_param = $_POST['search_param'];
-        $query .= " AND (PRODUCT_NAME LIKE '%$search_param%' OR DESCRIPTION LIKE '%search_param%')";
+        $search_param = strtoupper(clean_input($_POST['search_param']));
+        $query .= " AND (UPPER(PRODUCT_NAME) LIKE '%$search_param%' OR UPPER(DESCRIPTION) LIKE '%$search_param%')";
     }
     // Fiter for product type
     if (isset($_POST['product_type'])) {
@@ -23,5 +24,62 @@ if (isset($_POST['action'])) {
     if (isset($_POST['maximum_price']) && !empty($_POST['maximum_price'])) {
         $max_price = $_POST['maximum_price'];
         $query .= " AND PRODUCT_PRICE <= $max_price";
+    }
+
+    // For total number of results
+    $count_query = "SELECT COUNT(*) COUNT FROM ($query)";
+    $res = $db->execFetchAll($count_query, "COUNT products");
+    if (count($res) > 0) {
+        $total_count = (int) $res[0]['COUNT'];
+        $script = "<script>";
+        $script .= "var total_num_data = $total_count;
+                    $('#query-results-count').html('Total Results : $total_count');            
+        ";
+        $offset = 0;
+        $filter_count = 20;
+        // For offset / Pagination of the products page
+        if (isset($_POST['offset'])) {
+            $offset = (int) $_POST['offset'];
+        }
+        // For filter count of the products page
+        if (isset($_POST['filter_count'])) {
+            $filter_count = (int) $_POST['filter_count'];
+        }
+        // For script to generate total results and the pagination in the page
+        $script .= "generate_pagination($offset+1,$total_count);";
+        $script .= "</script>";
+        echo $script;
+
+        // For pagination of the data
+        $query .= " AND ROWNUM >= $offset*$filter_count AND ROWNUM <= ($offset+1)*$filter_count";
+        // For sorting of the data
+        if (isset($_POST['sort_query'])) {
+            $sort_query = $_POST['sort_query'];
+            $query .= " ORDER BY $sort_query";
+        }
+        $output = "";
+        $req_data = $db->execFetchAll($query, "SELECT req products");
+        if (count($req_data) > 0) {
+            $product = "test";
+            foreach ($req_data as $product) {
+                $output .= "<div class='card'>
+              <img class='card-img-top' src='public/img/products/" . $product['PRODUCT_ID'] . "-1.jpg' alt='Card image cap'>
+              <div class='card-body'>
+                <h5 class='card-title'>" . $product['PRODUCT_NAME']  ."</h5>
+                <p class='card-text'><b>€" . $product['PRODUCT_PRICE'] ."</b></p>
+              </div>
+              <div class='hidden-card-body-container'>
+                <div class='hidden-card-body'>
+                  <a href='/indv-product.php?product_id=" . $product['PRODUCT_ID'] . "' class='btn btn-primary'>" . file_get_contents('../public/img/svg/search.svg') . "</a>
+                  <a href='#' class='btn btn-primary'>" . file_get_contents('../public/img/svg/cart.svg') . "</a>
+                </div>
+              </div>
+            </div>";
+            }
+            echo ($output);
+        } else {
+            echo ("No data found");
+        }
+        // echo $query;
     }
 }

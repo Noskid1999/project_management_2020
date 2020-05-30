@@ -13,9 +13,15 @@
     </a> -->
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <?php echo file_get_contents("public/img/svg/person.svg"); ?>
+        <?php
+        if (isset($_SESSION['user'])) {
+            echo ("<span class='text-small'>" . $_SESSION['user']['FIRST_NAME'] . "</span>");
+        }
+        ?>
     </a>
+
     <div class="dropdown-menu" style="right:0;left:auto;" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Cart</a>
+        <a class="dropdown-item" href="/cart.php">Cart</a>
         <a class="dropdown-item" href="/customer-profile.php">Profile</a>
         <div class="dropdown-divider"></div>
         <?php

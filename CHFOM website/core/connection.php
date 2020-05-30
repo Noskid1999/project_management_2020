@@ -13,6 +13,10 @@ class DBController
    // User: root
    // Password: admin
 
+   // Apex Admin
+   // User: ROOT
+   // Password: Test1!
+
    /**
     * @var resource The connection resource
     * @access protected

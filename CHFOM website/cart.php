@@ -23,7 +23,6 @@ if (isset($_SESSION['user'])) {
 
         @media screen and (max-width: 600px) {
             table#cart tbody td .form-control {
-                width: 20%;
                 display: inline !important;
             }
 
@@ -144,7 +143,7 @@ if (isset($_SESSION['user'])) {
                             <td class="text-center"><strong>Total €1.99</strong></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                            <td><a href="/shop.php" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                             <td colspan="2" class="hidden-xs"></td>
                             <td class="hidden-xs text-center"><strong>Total €1.99</strong></td>
                             <td><a href="#" class="btn btn-success btn-block">Checkout&nbsp;<i class="fa fa-angle-right d-inline"></i></a></td>

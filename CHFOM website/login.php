@@ -24,6 +24,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (count($res) > 0) {
                 $user = $res[0];
                 if (md5($password) == $user['PASSWORD']) {
+                    // Set the appropriate user type id
+                    if ($user['USER_TYPE'] == "CUSTOMER") {
+                        $sql = "SELECT CUSTOMER_ID FROM CUSTOMER WHERE USER_ID = " . $user['USER_ID'] . " AND ROWNUM = 1 ORDER BY CUSTOMER_ID DESC";
+                        $res = $db->execFetchAll($sql, "SELECT customer_id");
+                        if (count($res) > 0) {
+                            $user['CUSTOMER_ID'] = $res[0]['CUSTOMER_ID'];
+                        }
+                    } else if ($user['USER_TYPE'] == "TRADER") {
+                        $sql = "SELECT TRADER_ID FROM TRADER WHERE USER_ID = " . $user['USER_ID'] . " AND ROWNUM = 1 ORDER BY TRADER_ID DESC";
+                        $res = $db->execFetchAll($sql, "SELECT trader_id");
+                        if (count($res) > 0) {
+                            $user['TRADER_ID'] = $res[0]['TRADER_ID'];
+                        }
+                    } else if ($user['USER_TYPE'] == "ADMIN") {
+                        $sql = "SELECT ADMIN_ID FROM ADMIN WHERE USER_ID = " . $user['USER_ID'] . " AND ROWNUM = 1 ORDER BY ADMIN_ID DESC";
+                        $res = $db->execFetchAll($sql, "SELECT admin_id");
+                        if (count($res) > 0) {
+                            $user['ADMIN_ID'] = $res[0]['ADMIN_ID'];
+                        }
+                    }
                     $_SESSION["user"] = $user;
                     $_SESSION['success_message'] = "Successfully logged in";
                 } else {

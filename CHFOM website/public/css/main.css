@@ -167,12 +167,19 @@ section#new-arrivals .header-container {
 }
 
 /* Card Design */
+.product-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  grid-gap: 1rem;
+  position: relative;
+}
 .product-card-container .card {
   background-color: #f5f5f5;
   width: 100% !important;
-  height: 310px;
+  height: 330px;
   transition-duration: 0.1s;
   border: none;
+  padding: 2rem 0 2rem;
 }
 .product-card-container .card:hover {
   cursor: pointer;
@@ -191,12 +198,7 @@ section#new-arrivals .header-container {
   color: #7fd02c;
 }
 /* For Hover Animation */
-.product-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  grid-gap: 1rem;
-  position: relative;
-}
+
 .hidden-card-body-container {
   position: absolute;
   bottom: -15%;
@@ -243,7 +245,6 @@ section#new-arrivals .header-container {
   transition-duration: 0.15s;
 }
 
-
 /* 
   COLORS
 */
@@ -251,10 +252,10 @@ section#new-arrivals .header-container {
   color: #f96332;
 }
 .text-small {
-  font-size: 0.9rem;
+  font-size: 0.9rem!important;
 }
 .text-large {
-  font-size: 1.2rem;
+  font-size: 1.2rem!important;
 }
 
 /* 
@@ -274,3 +275,17 @@ section#new-arrivals .header-container {
 /* 
   Custom Card
 */
+/*
+  Loader
+*/
+.loading {
+  width: 100%;
+  position: relative;
+  min-height: 200px;
+}
+.loading img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}

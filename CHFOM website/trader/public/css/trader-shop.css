@@ -1,0 +1,11 @@
+.form-container {
+  margin-left: inherit;
+  max-width: 900px;
+  padding: 3rem;
+  border: 1px solid #999c9f;
+  border-top: 5px solid #fa0101;
+  border-radius: 25px;
+}
+table.table tr:hover {
+  cursor: pointer;
+}

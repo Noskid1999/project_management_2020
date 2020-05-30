@@ -1,5 +1,13 @@
 <?php
-@include("includes/header.php");
+session_start();
+if ($_POST) {
+  // Redirect to this page.
+  header("Location: " . $_SERVER['REQUEST_URI']);
+  exit();
+}
+
+require_once("core/connection.php");
+include("includes/header.php");
 ?>
 <link rel="stylesheet" href="public/css/shop.css">
 
@@ -141,29 +149,12 @@
         </div>
       </div>
       <div class="col-10" id="prod-data">
-        <!-- <div class="row" id="prod-data-output"> -->
-        <div class="product-card-container" id="prod-data-output">
-          <?php
-          for ($i = 1; $i <= 50; $i++) {
-          ?>
-            <div class="card">
-              <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">BANANA</h5>
-                <p class="card-text"><b>€10</b></p>
-              </div>
-              <div class="hidden-card-body-container">
-                <div class="hidden-card-body">
-                  <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                  <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                </div>
-              </div>
-            </div>
-          <?php
-
-          } ?>
+        <div class="loading">
+          <img src="public/img/gif/loading.gif" alt="">
         </div>
-        <!-- </div> -->
+        <div class="product-card-container" id="prod-data-output">
+
+        </div>
         <div class="row">
           <div class="col-12">
             <ul class="pagination float-right" id="pagination-container">
