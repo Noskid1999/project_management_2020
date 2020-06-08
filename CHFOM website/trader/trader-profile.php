@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("includes/header.php");
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
@@ -15,21 +16,35 @@ if (isset($_SESSION['user'])) {
 
 require_once("../core/connection.php");
 require_once("../core/validation_functions.php");
+
+include("includes/header.php");
 ?>
 
 <body>
+    <style>
+        .form-container {
+            margin-left: inherit;
+            max-width: 900px;
+            padding: 3rem;
+            border: 1px solid #999c9f;
+            border-top: 5px solid #fa0101;
+            border-radius: 25px;
+        }
 
+        table.table tr:hover {
+            cursor: pointer;
+        }
+    </style>
     <link href="../public/css/trader-dashboard.css" rel="stylesheet" />
-    <link href="./public/css/trader-shop.css" rel="stylesheet" />
     <?php
-    include_once("includes/trader-navbar.php");
+    include_once("./includes/trader-navbar.php");
     ?>
 
     <div class="container-fluid">
         <div class="row position-relative">
             <?php
-            $show = "trader-type";
-            $sub_show = "trader-add-trader-type";
+            $show = "profile";
+            $sub_show = "profile-details";
             include_once("includes/trader-sidebar.php");
             ?>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -38,13 +53,13 @@ require_once("../core/validation_functions.php");
                 ?>
                 <!-- Actual data shown start -->
                 <main>
-                    <h2>Add Trader Type</h2>
+                    <h2>Customer Profile</h2>
                     <?php
-                    if (isset($_SESSION['add-trader-type-success'])) {
-                        if ($_SESSION['add-trader-type-success']) {
+                    if (isset($_SESSION['trader-profile-success'])) {
+                        if ($_SESSION['trader-profile-success']) {
                             echo ("
                                     <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                        Trader Type Added successfully
+                                        Please Relogin to view the changes
                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                             <span aria-hidden='true'>&times;</span>
                                         </button>
@@ -52,29 +67,32 @@ require_once("../core/validation_functions.php");
                         } else {
                             echo ("
                                 <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                Trader Type Added Unsuccessful
+                                    Product Update unsuccessful
                                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                         <span aria-hidden='true'>&times;</span>
                                     </button>
                                 </div>");
                         }
 
-                        unset($_SESSION['add-trader-type-success']);
+                        unset($_SESSION['trader-profile-success']);
                     }
                     ?>
-                    <div class="container form-container" id="add-shop-form-container">
-                        <form action="api/post-add-trader-type.php" method="post">
-                            <input type="hidden" name="trader_id" value="<?php echo $user['TRADER_ID'];  ?>">
+                    <div class="container form-container">
+                        <form action="./api/post-update-profile.php" method="POST" id="profile-update-form">
+                            <input type="hidden" name="user_id" value="<?php echo $user["USER_ID"]; ?>">
                             <div class="form-group">
-                                <label for="trader_type">Trader Type</label>
-                                <input type="text" class="form-control" name="trader_type" placeholder="Enter a trader type for business">
-                                <small class="text-info">This will be approved only if this product type doesn't match / co-incide with current types.</small>
+                                <label for="f_name">First Name</label>
+                                <input type="text" name="f_name" id="f_name_id" value="<?php echo ($user["FIRST_NAME"]); ?>" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="trader_description">Trader Description</label>
-                                <textarea class="form-control" name="trader_description" rows="10" placeholder="Enter the description for the trader type"></textarea>
+                                <label for="l_name">Last Name</label>
+                                <input type="text" name="l_name" id="l_name_id" value="<?php echo ($user["LAST_NAME"]); ?>" class="form-control">
                             </div>
-                            <button class="btn btn-primary">Add Trader Type</button>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" value="<?php echo ($user["ADDRESS"]); ?>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
                         </form>
                     </div>
                 </main>
@@ -124,41 +142,41 @@ require_once("../core/validation_functions.php");
         // postId++); myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
         // // re-render the chart myChart.update(); } }); }; // get new data every 3
         // seconds setInterval(getData, 3000);
-        // var ctx = document.getElementById("myChart");
-        // var myChart = new Chart(ctx, {
-        //     type: "line",
-        //     data: {
-        //         labels: [
-        //             "Sunday",
-        //             "Monday",
-        //             "Tuesday",
-        //             "Wednesday",
-        //             "Thursday",
-        //             "Friday",
-        //             "Saturday",
-        //         ],
-        //         datasets: [{
-        //             data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-        //             lineTension: 0,
-        //             backgroundColor: "transparent",
-        //             borderColor: "#007bff",
-        //             borderWidth: 4,
-        //             pointBackgroundColor: "#007bff",
-        //         }, ],
-        //     },
-        //     options: {
-        //         scales: {
-        //             yAxes: [{
-        //                 ticks: {
-        //                     beginAtZero: false,
-        //                 },
-        //             }, ],
-        //         },
-        //         legend: {
-        //             display: false,
-        //         },
-        //     },
-        // });
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: [
+                    "Sunday",
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                ],
+                datasets: [{
+                    data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                    lineTension: 0,
+                    backgroundColor: "transparent",
+                    borderColor: "#007bff",
+                    borderWidth: 4,
+                    pointBackgroundColor: "#007bff",
+                }, ],
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                        },
+                    }, ],
+                },
+                legend: {
+                    display: false,
+                },
+            },
+        });
     </script>
 
     <?php

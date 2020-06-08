@@ -1,2 +1,2 @@
 INSERT ALL INTO PAYMENT_DETAIL (BASKET_PRODUCT_ID,PAYMENT_IDENTIFICATION,INVOICE_ID,PAYMENT_TYPE,PAYMENT_EMAIL,TRANSACTION_TIME, FIRST_NAME,LAST_NAME, PAYMENT_AMOUNT,address_street,address_city,address_state,address_zip,address_country) 
-                            VALUES (103,'2LG59052X87518309',71,'PAYPAL','sb-ancwp1953759@personal.example.com',CURRENT_TIMESTAMP,'John','Doe',5.00,'1 Cheeseman Ave Brighton East','Melbourne','Victoria','3001','Australia') SELECT * FROM DUAL
+                            VALUES (121,'9A8245355C615090V',81,'PAYPAL','sb-ancwp1953759@personal.example.com',CURRENT_TIMESTAMP,'John','Doe',1.45,'1 Cheeseman Ave Brighton East','Melbourne','Victoria','3001','Australia') SELECT * FROM DUAL

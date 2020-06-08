@@ -28,8 +28,8 @@ require_once("../core/validation_functions.php");
     <div class="container-fluid">
         <div class="row position-relative">
             <?php
-            $show = "products";
-            $sub_show = "products-details";
+            $show = "trader-type";
+            $sub_show = "trader-type-details";
             include_once("includes/trader-sidebar.php");
             ?>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -38,64 +38,13 @@ require_once("../core/validation_functions.php");
                 ?>
                 <!-- Actual data shown start -->
                 <main>
-                    <h2>Products Details</h2>
-                    <?php
-                    if (isset($_SESSION['update-product-success'])) {
-                        if ($_SESSION['update-product-success']) {
-                            echo ("
-                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                    Product Updated Successfully
-                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>");
-                        } else {
-                            echo ("
-                            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                Product Update Unsuccessful
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                            </div>");
-                        }
-
-                        unset($_SESSION['update-product-success']);
-                    }
-                    if (isset($_SESSION['delete-product-success'])) {
-                        if ($_SESSION['delete-product-success']) {
-                            echo ("
-                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                    Product Deleted Successfully
-                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>");
-                        } else {
-                            echo ("
-                            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                Product Delete Unsuccessful
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                            </div>");
-                        }
-
-                        unset($_SESSION['delete-product-success']);
-                    }
-                    ?>
+                    <h2>Trader Type</h2>
                     <table class="table table-striped table-bordered table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Product Description</th>
-                                <th scope="col">Product Price</th>
-                                <th scope="col">Quantity Per Item</th>
-                                <th scope="col">Stock Available</th>
-                                <th scope="col">Minimum Order</th>
-                                <th scope="col">Maximum Order</th>
-                                <th scope="col">Allergy Information</th>
-                                <th scope="col">Shop</th>
+                                <th scope="col">Trader Type</th>
+                                <th scope="col">Trader Description</th>
+                                <th scope="col">Approved</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,27 +52,16 @@ require_once("../core/validation_functions.php");
                             $sql = "SELECT 
                                         * 
                                     FROM 
-                                        product p, product_type pt, shop s,trader_type tt
-                                    WHERE 
-                                        p.Product_type_id = pt.Product_type_id AND 
-                                        pt.Shop_id = s.Shop_id AND
-                                        s.Trader_type_id = tt.Trader_type_id
-                                        AND tt.Trader_id = $user[TRADER_ID]";
-                            $res = $db->execFetchAll($sql, "SELECT shops");
+                                        trader_type tt
+                                    WHERE tt.Trader_id = $user[TRADER_ID]";
+                            $res = $db->execFetchAll($sql, "SELECT trader_type");
                             if (count($res) > 0) {
-                                foreach ($res as $shop) {
-                                    echo ("<tr data-product-id = '" . $shop["PRODUCT_ID"] . "' data-toggle='modal' data-target='#editProduct'>");
+                                foreach ($res as $trader_type) {
+                                    echo ("<tr data-product-id = '" . $trader_type["TRADER_TYPE_ID"] . "'>");
 
-                                    echo ("<td>" . $shop['PRODUCT_NAME'] . "</td>");
-                                    echo ("<td>" . $shop['PRODUCT_TYPE'] . "</td>");
-                                    echo ("<td>" . $shop['PRODUCT_DESCRIPTION'] . "</td>");
-                                    echo ("<td>£" . $shop['PRODUCT_PRICE'] . "</td>");
-                                    echo ("<td>" . $shop['QUANTITY_PER_ITEM'] . "</td>");
-                                    echo ("<td>" . $shop['STOCK_AVAILABLE'] . "</td>");
-                                    echo ("<td>" . $shop['MIN_ORDER'] . "</td>");
-                                    echo ("<td>" . $shop['MAX_ORDER'] . "</td>");
-                                    echo ("<td>" . $shop['ALLERGY_INFORMATION'] . "</td>");
-                                    echo ("<td>" . $shop['SHOP_NAME'] . "</td>");
+                                    echo ("<td>" . $trader_type['TRADER_TYPE'] . "</td>");
+                                    echo ("<td>" . $trader_type['DESCRIPTION'] . "</td>");
+                                    echo ("<td>" . $trader_type['APPROVED'] . "</td>");
 
                                     echo ("</tr>");
                                 }
@@ -284,7 +222,7 @@ require_once("../core/validation_functions.php");
                 success: function(data) {
                     window.location = window.location;
                     // console.log(data);
-                    
+
                 },
                 error: function(data) {
                     window.location = window.location;

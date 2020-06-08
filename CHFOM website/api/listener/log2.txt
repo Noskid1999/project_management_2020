@@ -1,1 +1,1 @@
-UPDATE basket_product SET TRX_COMPLETED = 'Y' WHERE Basket_product_id in (103)
+UPDATE basket_product SET TRX_COMPLETED = 'Y' WHERE Basket_product_id in (121)

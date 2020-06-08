@@ -128,6 +128,15 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                     );
                     send_mail($data);
                 }
+                foreach ($trader_list as $email) {
+                    $data = array(
+                        'email_address' => $email['EMAIL'],
+                        'mail_type' => 'INVOICE_CUSTOMER',
+                        'invoice_id' =>  $invoice_id,
+                        'trader_id' => $email['TRADER_ID']
+                    );
+                    send_mail($data);
+                }
             } else if (strcmp($lines[0], "FAIL") == 0) {
                 // log for manual investigation
             }

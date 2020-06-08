@@ -11,89 +11,8 @@ if (!isset($sub_show)) {
 </div>
 <nav class="col-md-2 d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
-    <!-- <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">
-          <span data-feather="home"></span>
-          Dashboard <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="file"></span>
-          Orders
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="shopping-cart"></span>
-          Products
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="users"></span>
-          Customers
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="bar-chart-2"></span>
-          Reports
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trader-shops.php">
-          <span data-feather="layers"></span>
-          Shops
-        </a>
-      </li>
-    </ul> -->
     <div id="accordion">
       <!-- <div class="card">
-        <div class="card-header" id="dashboardHeader">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#dashboard" aria-expanded="<?php if ($show == 'shops') {
-                                                                                                          echo "true";
-                                                                                                        } else {
-                                                                                                          echo "false";
-                                                                                                        } ?>" aria-controls="dashboard">
-              <a class="nav-link <?php if ($show == 'dashboard') {
-                                    echo "active";
-                                  } ?>" href="./trader-dashboard.php">
-                <span data-feather="home"></span>
-                Dashboard <span class="sr-only">(current)</span>
-              </a>
-            </button>
-          </h5>
-        </div>
-      </div> -->
-      <!-- <div class="card">
-        <div class="card-header" id="ordersHeader">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#orders" aria-expanded="<?php if ($show == 'orders') {
-                                                                                                        echo "true";
-                                                                                                      } else {
-                                                                                                        echo "false";
-                                                                                                      } ?>" aria-controls="orders">
-              <a class="nav-link <?php if ($show == 'orders') {
-                                    echo "active";
-                                  } ?>" href="#">
-                <span data-feather="file"></span>
-                Orders
-              </a>
-            </button>
-          </h5>
-        </div>
-        <div id="orders" class="collapse <?php if ($show == 'orders') {
-                                            echo "show";
-                                          } ?>" aria-labelledby="ordersHeader" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit,
-          </div>
-        </div>
-      </div> -->
-      <div class="card">
         <div class="card-header" id="prodcutsHeader">
           <h5 class="mb-0">
             <button class="btn btn-link" data-toggle="collapse" data-target="#products" aria-expanded="<?php if ($show == 'products') {
@@ -128,66 +47,17 @@ if (!isset($sub_show)) {
             </div>
           </div>
         </div>
-      </div>
-      <!-- <div class="card">
-        <div class="card-header" id="customersHeader">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#customers" aria-expanded="<?php if ($show == 'customers') {
-                                                                                                          echo "true";
-                                                                                                        } else {
-                                                                                                          echo "false";
-                                                                                                        } ?>" aria-controls="customers">
-              <a class="nav-link <?php if ($show == 'customers') {
-                                    echo "active";
-                                  } ?>" href="#">
-                <span data-feather="users"></span>
-                Customers
-              </a>
-            </button>
-          </h5>
-        </div>
-        <div id="customers" class="collapse <?php if ($show == 'customers') {
-                                              echo "show";
-                                            } ?>" aria-labelledby="customersHeader" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit,
-          </div>
-        </div>
       </div> -->
-      <!-- <div class="card">
-        <div class="card-header" id="reportsHeader">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#reports" aria-expanded="<?php if ($show == 'reports') {
-                                                                                                        echo "true";
-                                                                                                      } else {
-                                                                                                        echo "false";
-                                                                                                      } ?>" aria-controls="reports">
-              <a class="nav-link <?php if ($show == 'reports') {
-                                    echo "active";
-                                  } ?>" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reports
-              </a>
-            </button>
-          </h5>
-        </div>
-        <div id="reports" class="collapse <?php if ($show == 'reports') {
-                                            echo "show";
-                                          } ?>" aria-labelledby="reportsHeader" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit,
-          </div>
-        </div>
-      </div> -->
+      
       <div class="card">
         <div class="card-header" id="traderTypeHeader">
           <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#traderType" aria-expanded="<?php if ($show == 'traderType') {
-                                                                                                          echo "true";
-                                                                                                        } else {
-                                                                                                          echo "false";
-                                                                                                        } ?>" aria-controls="traderType">
-              <a class="nav-link <?php if ($show == 'traderType') {
+            <button class="btn btn-link" data-toggle="collapse" data-target="#traderType" aria-expanded="<?php if ($show == 'trader-type') {
+                                                                                                            echo "true";
+                                                                                                          } else {
+                                                                                                            echo "false";
+                                                                                                          } ?>" aria-controls="trader-type">
+              <a class="nav-link <?php if ($show == 'trader-type') {
                                     echo "active";
                                   } ?>" href="./trader-type.php">
                 <span data-feather="shopping-cart"></span>
@@ -196,20 +66,15 @@ if (!isset($sub_show)) {
             </button>
           </h5>
         </div>
-        <div id="traderType" class="collapse <?php if ($show == 'trader-type') {
-                                              echo "show";
-                                            } ?>" aria-labelledby="traderTypeHeader" data-parent="#accordion">
+        <div id="trader-type" class="collapse <?php if ($show == 'trader-type') {
+                                                echo "show";
+                                              } ?>" aria-labelledby="traderTypeHeader" data-parent="#accordion">
           <div class="card-body">
             <div class="list-group">
               <a href="./trader-type.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'trader-type-details') {
-                                                                                                echo "active";
-                                                                                              } ?>">
+                                                                                            echo "active";
+                                                                                          } ?>">
                 Trader Type Details
-              </a>
-              <a href="./trader-add-trader-type.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'trader-add-trader-type') {
-                                                                                                    echo "active";
-                                                                                                  } ?>">
-                Add Trader Type
               </a>
             </div>
           </div>

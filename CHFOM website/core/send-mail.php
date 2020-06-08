@@ -138,6 +138,16 @@ function send_mail($mail_params)
             $mail->Subject = "Order Receipt From CHFOM for Customer";
             $mail->Body = $req_mail_template;
             $mail_send = true;
+        } else if ($mail_params['mail_type'] == "PROFILE_UPDATE") {
+            $mail->Subject = "Profile Update Notification";
+            if (array_key_exists("user_id", $mail_params)) {
+                $user_id = $mail_params['user_id'];
+                $req_mail_template = file_get_contents("templates/profile-update.php", true);
+                $mail->Body = $req_mail_template;
+                $mail_send = true;
+            } else {
+                return false;
+            }
         }
         if ($mail_send) {
             $mail->send();

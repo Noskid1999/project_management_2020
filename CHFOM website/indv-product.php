@@ -35,6 +35,8 @@ if (isset($_GET['product_id'])) {
 @include("includes/header.php");
 ?>
 <link rel="stylesheet" href="public/css/indv-product.css">
+<link href="node_modules/star-rating.js/dist/star-rating.css" rel="stylesheet" />
+<script src="node_modules/star-rating.js/dist/star-rating.min.js"></script>
 
 <body>
     <?php
@@ -216,28 +218,61 @@ if (isset($_GET['product_id'])) {
                         <div class="col-12">
                             <h4 class="h4">Reviews</h4>
                         </div>
-                    </div>
-                    <?php
-                    for ($i = 1; $i <= 5; $i++) {
-                    ?>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-md-2 text-left text-warning"><i class="fas fa-star"></i></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span style="font-size: .8rem;">
-                                            by <span class=" text-black-50">Lorem Ipsum</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, itaque!</div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="./api/customer-profile/post-add-product-review.php" id="product-review-form" method="POST">
+                                        <input type="hidden" name="product_id" value="<?php echo ($product['PRODUCT_ID']); ?>">
+                                        <input type="hidden" name="user_id" value="<?php echo ($user['USER_ID']); ?>">
+                                        <select class="star-rating" name="rating">
+                                            <option value="">Select a rating</option>
+                                            <option value="5">Excellent</option>
+                                            <option value="4">Very Good</option>
+                                            <option value="3">Average</option>
+                                            <option value="2">Poor</option>
+                                            <option value="1">Terrible</option>
+                                        </select>
+                                        <textarea name="review" id="review-textarea" class="form-control" cols="30" rows="5"></textarea>
+                                        <button class="btn btn-primary" type="submit">Add Review</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <?php
+                    $sql = "SELECT * FROM product_comment pc, users u
+                            WHERE pc.User_id = u.User_id
+                            AND pc.Product_id = $product[PRODUCT_ID]
+                            ORDER BY pc.Product_comment_id DESC";
+                    $res = $db->execFetchAll($sql, "GET product_comments");
+                    if (count($res) > 0) {
+                        foreach ($res as $product_comment) {
+                    ?>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-md-2 text-left text-warning">
+                                            <?php
+                                            for ($i = 0; $i < $product_comment['RATING']; $i++) {
+                                            ?>
+                                                <i class="fas fa-star"></i>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span style="font-size: .8rem;">
+                                                by <span class=" text-black-50"><?php echo $product_comment['FIRST_NAME']; ?></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12"><?php echo $product_comment['PRODUCT_COMMENT']; ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php
+                        }
                     }
                     ?>
 
@@ -368,6 +403,12 @@ if (isset($_GET['product_id'])) {
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        var starRatingControl = new StarRating('.star-rating', {
+            maxStars: 5,
+            showText: false
         });
     </script>
 </body>

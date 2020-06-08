@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['user']) && empty($_POST)) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
-        if (isset($_POST['shop-type'])) {
+        if (isset($_POST['product_type_id'])) {
         } else {
             // header('location:../login.php');
         }
@@ -20,7 +20,7 @@ require_once("../../core/validation_functions.php");
 define('UPLOAD_DIR', '../../public/img/products');
 define('UPLOAD_MAX_FILE_SIZE', 10485760); // 10MB.
 //@changed_2018-02-17_14.28
-define('UPLOAD_ALLOWED_MIME_TYPES', 'image/jpeg,image/png,image/gif');
+define('UPLOAD_ALLOWED_MIME_TYPES', 'image/jpeg');
 
 $product = $_POST;
 $product_name = oracle_escape_string($product['product_name']);

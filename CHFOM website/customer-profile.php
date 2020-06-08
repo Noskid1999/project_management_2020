@@ -184,11 +184,13 @@ require_once("./core/connection.php");
             split.shift();
             var l_name = split.join(" ");
             var address = $("#address").val();
+            var email = $("#email").val();
             var payload = {
                 user_id,
                 f_name,
                 l_name,
-                address
+                address,
+                email
             }
             $.ajax({
                 method: "POST",
@@ -196,6 +198,7 @@ require_once("./core/connection.php");
                 data: payload,
                 success: function(data) {
                     data = JSON.parse(data);
+                    
                     if (data.success) {
                         $("#success-alert").removeClass("d-none");
                     }
