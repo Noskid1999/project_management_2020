@@ -12,6 +12,7 @@ if (isset($_SESSION['user'])) {
     header('Location: http://localhost/login.php');
 }
 @include("includes/header.php");
+print_r($_POST);
 ?>
 
 <body>
@@ -77,8 +78,8 @@ if (isset($_SESSION['user'])) {
                                     <td>Item 1</td>
                                     <td>Lorem ipsum dolor sit amet.</td>
                                     <td>1</td>
-                                    <td>€500</td>
-                                    <td>€500</td>
+                                    <td>£500</td>
+                                    <td>£500</td>
                                 </tr>
                             <?php
                             }
@@ -96,22 +97,22 @@ if (isset($_SESSION['user'])) {
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-12 text-large">
-                            <div class=" float-right"><span class="text-small">Sub-total:</span>€2500</div>
+                            <div class=" float-right"><span class="text-small">Sub-total:</span>£2500</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 text-large">
-                            <div class="float-right"><span class="text-small">Sub-total:</span>€2500</div>
+                            <div class="float-right"><span class="text-small">Sub-total:</span>£2500</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 text-large">
-                            <div class="float-right"><span class="text-small">Sub-total:</span>€2500</div>
+                            <div class="float-right"><span class="text-small">Sub-total:</span>£2500</div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12 text-large">
-                            <div class="float-right"><span class="text-small">Sub-total:</span>€2500</div>
+                            <div class="float-right"><span class="text-small">Sub-total:</span>£2500</div>
                         </div>
                     </div>
                     <div class="row">

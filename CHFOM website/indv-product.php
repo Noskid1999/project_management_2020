@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_SESSION['user'])) {
+    if (!empty($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+    }
+}
 if (isset($_GET['product_id'])) {
     require_once("core/connection.php");
     require_once("core/validation_functions.php");
@@ -108,7 +113,7 @@ if (isset($_GET['product_id'])) {
                     </div>
                     <div class="row mb-3">
                         <div class="col-2 px-0 text-success" style="font-size: 1.5rem">
-                            €<?php echo $product['PRODUCT_PRICE']; ?>
+                            £<?php echo $product['PRODUCT_PRICE']; ?>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -147,36 +152,46 @@ if (isset($_GET['product_id'])) {
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-12 px-0">
-                            <div class="row">
+                        <?php
+                        if (isset($_SESSION['user'])) {
+                            if (!empty($_SESSION['user']) && $_SESSION['user']['USER_TYPE'] == "CUSTOMER") {
+                        ?>
+
                                 <div class="col-12 px-0">
-                                    <form action="api/post-add-product-to-basket.php" method="post" id="add-product-to-basket">
-                                        <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
-                                        <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
-                                        <input type="hidden" name="product_quantity" value="1">
-                                        <button class="btn btn-success" id="add-to-basket-btn">Add to Basket</button>
-                                    </form>
+                                    <div class="row">
+                                        <div class="col-12 px-0">
+                                            <form action="api/post-add-product-to-basket.php" method="post" id="add-product-to-basket">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
+                                                <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
+                                                <input type="hidden" name="product_quantity" value="1">
+                                                <button class="btn btn-success" id="add-to-basket-btn">Add to Basket</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-auto px-0">
+                                            <form action="api/post-update-product-to-basket.php" method="post" id="update-product-to-basket">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
+                                                <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
+                                                <input type="hidden" name="product_quantity" value="1">
+                                                <button class="btn btn-info d-none" id="update-basket-btn">Update Basket</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="api/post-remove-product-to-basket.php" method="post" id="remove-product-to-basket">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
+                                                <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
+                                                <input type="hidden" name="product_quantity" value="1">
+                                                <button class="btn btn-danger d-none" id="remove-from-basket-btn">Remove from Basket</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-auto px-0">
-                                    <form action="api/post-update-product-to-basket.php" method="post" id="update-product-to-basket">
-                                        <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
-                                        <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
-                                        <input type="hidden" name="product_quantity" value="1">
-                                        <button class="btn btn-info d-none" id="update-basket-btn">Update Basket</button>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <form action="api/post-remove-product-to-basket.php" method="post" id="remove-product-to-basket">
-                                        <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
-                                        <input type="hidden" name="product_price" value="<?php echo $product['PRODUCT_PRICE']; ?>">
-                                        <input type="hidden" name="product_quantity" value="1">
-                                        <button class="btn btn-danger d-none" id="remove-from-basket-btn">Remove from Basket</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12 px-0" id="alert-div">
@@ -190,7 +205,7 @@ if (isset($_GET['product_id'])) {
             <div class="row">
                 <div class="col-12">
                     <h4 class="h4">Product Details</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam nobis, quibusdam itaque velit vel voluptas officia repellendus! Incidunt repellendus assumenda fugiat ea culpa, doloremque perspiciatis suscipit a exercitationem fuga ut officia consectetur quis odio? Ad unde consequuntur, expedita nesciunt alias rerum, assumenda quis beatae itaque reprehenderit quae fuga corporis cum.</p>
+                    <p><?php echo $product['PRODUCT_DESCRIPTION']; ?></p>
                 </div>
             </div>
         </div>
@@ -237,6 +252,8 @@ if (isset($_GET['product_id'])) {
     <script>
         $(document).ready(() => {
             var req_data = $("form#add-product-to-basket");
+            console.log(req_data);
+
             $.ajax({
                 type: "POST",
                 url: "./api/post-check-if-product-in-user-basket.php",

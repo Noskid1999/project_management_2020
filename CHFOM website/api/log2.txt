@@ -1,0 +1,12 @@
+cmd=_cart
+upload=1
+lc=EN
+business=sb-vvc9o2174671@business.example.com
+cancel_return=http://localhost/basket.php?order_status-cancelled
+notify_url=https://4f5636c5c480.ngrok.io/api/listener/paypal-trx-listener.php
+currency_code=GBP
+custom={"collection_slot":"41"}
+item_number_1=103
+item_name_1=Brocolli
+quantity_1=1
+amount_1=5

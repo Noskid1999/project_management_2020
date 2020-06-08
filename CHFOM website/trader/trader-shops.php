@@ -3,11 +3,14 @@ session_start();
 include("includes/header.php");
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
+        $user = $_SESSION['user'];
     } else {
-        // header('location:../login.php');
+        $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+        header('location:../../login.php');
     }
 } else {
-    // header('location:../login.php');
+    $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+    header('location:../../login.php');
 }
 
 require_once("../core/connection.php");
@@ -90,6 +93,7 @@ require_once("../core/validation_functions.php");
                                     shop s, trader_type tt 
                                 WHERE
                                     s.Trader_type_id = tt.Trader_type_id 
+                                    AND tt.Trader_id = $user[TRADER_ID]
                                 ORDER BY 
                                     s.Shop_id";
                             $res = $db->execFetchAll($sql, "SELECT shops");

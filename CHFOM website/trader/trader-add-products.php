@@ -4,10 +4,12 @@ include("includes/header.php");
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
     } else {
-        // header('location:../login.php');
+        $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+        header('location:../../login.php');
     }
 } else {
-    // header('location:../login.php');
+    $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+    header('location:../../login.php');
 }
 
 require_once("../core/connection.php");
@@ -37,7 +39,7 @@ require_once("../core/validation_functions.php");
                 <main>
                     <h2>Add Product</h2>
                     <div class="container form-container" id="add-product-form-container">
-                        <form action="./api/post-add-product.php" method="POST" id="add-product-form">
+                        <form action="./api/post-add-product.php" method="POST" id="add-product-form" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="shop_id">Shop:</label>
                                 <select name="shop_id" id="shop_id" class="form-control" required>
@@ -51,6 +53,7 @@ require_once("../core/validation_functions.php");
                                             WHERE    
                                                 s.Trader_type_id = tt.Trader_type_id AND
                                                 tt.Trader_id = t.Trader_id AND
+                                                tt.Approved = 'Y' AND
                                                 t.Trader_id = " . $_SESSION['user']['TRADER_ID'];
                                     $res = $db->execFetchAll($sql, "SELECT trader_type");
                                     if (count($res) > 0) {
@@ -100,6 +103,10 @@ require_once("../core/validation_functions.php");
                             <div class="form-group">
                                 <label for="allergy_information">Allergy Information</label>
                                 <textarea name="allergy_information" id="allergy_information" rows="5" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="images">Images of the product:</label>
+                                <input type="file" name="images[]" multiple class="form-control">
                             </div>
                             <button class="btn btn-primary" type="submit">Add Product</button>
                         </form>

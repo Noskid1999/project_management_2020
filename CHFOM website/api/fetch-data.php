@@ -8,7 +8,7 @@ if (isset($_POST['action'])) {
     // Filter for search
     if (isset($_POST['search_param'])) {
         $search_param = strtoupper(clean_input($_POST['search_param']));
-        $query .= " AND (UPPER(PRODUCT_NAME) LIKE '%$search_param%' OR UPPER(DESCRIPTION) LIKE '%$search_param%')";
+        $query .= " AND (UPPER(PRODUCT_NAME) LIKE '%$search_param%' OR UPPER(PRODUCT_DESCRIPTION) LIKE '%$search_param%')";
     }
     // Fiter for product type
     if (isset($_POST['product_type'])) {
@@ -25,6 +25,12 @@ if (isset($_POST['action'])) {
         $max_price = $_POST['maximum_price'];
         $query .= " AND PRODUCT_PRICE <= $max_price";
     }
+    // Check if offset if present
+    if(isset($_POST['offset']) && !empty($_POST['offset'])){
+        $offset= $_POST['offset'];
+    }else{
+        $offset = 0;
+    }
 
     // For total number of results
     $count_query = "SELECT COUNT(*) COUNT FROM ($query)";
@@ -35,7 +41,6 @@ if (isset($_POST['action'])) {
         $script .= "var total_num_data = $total_count;
                     $('#query-results-count').html('Total Results : $total_count');            
         ";
-        $offset = 0;
         $filter_count = 20;
         // For offset / Pagination of the products page
         if (isset($_POST['offset'])) {
@@ -62,11 +67,11 @@ if (isset($_POST['action'])) {
         if (count($req_data) > 0) {
             $product = "test";
             foreach ($req_data as $product) {
-                $output .= "<div class='card'>
+                $output .= "<div class='card' data-product-id='$product[PRODUCT_ID]'>
               <img class='card-img-top' src='public/img/products/" . $product['PRODUCT_ID'] . "-1.jpg' alt='Card image cap'>
               <div class='card-body'>
                 <h5 class='card-title'>" . $product['PRODUCT_NAME']  ."</h5>
-                <p class='card-text'><b>€" . $product['PRODUCT_PRICE'] ."</b></p>
+                <p class='card-text'><b>£" . $product['PRODUCT_PRICE'] ."</b></p>
               </div>
               <div class='hidden-card-body-container'>
                 <div class='hidden-card-body'>

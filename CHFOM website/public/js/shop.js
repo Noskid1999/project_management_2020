@@ -1,6 +1,4 @@
 function generate_pagination(current_page, total_num_data, page_links = 5) {
-  console.log(1);
-
   current_page = parseInt(current_page);
   if (total_num_data < 1) {
     return null;
@@ -85,7 +83,7 @@ $(document).ready(function () {
   function filter_data(offset = 0) {
     $("#prod-data-output").html('<div id="loading"></div>');
     var action = "fetch_data";
-    var brand = get_filter("brand");
+    var product_type = get_filter("product_type");
     var category = get_filter("category");
     var filter_count = 48;
     var minimum_price = $("#hidden_minimum_price").val();
@@ -103,7 +101,7 @@ $(document).ready(function () {
     }
     var payload = {
       action: action,
-      brand: brand,
+      product_type: product_type,
       category: category,
       filter_count: filter_count,
       minimum_price: minimum_price,
@@ -157,4 +155,10 @@ $(document).ready(function () {
       filter_data();
     },
   });
+});
+
+// Handling card click
+$(document).on("click",".card[data-product-id]", function (e) {
+  var product_id = e.currentTarget.dataset.productId;
+  window.location = "./indv-product.php?product_id=" + product_id;
 });

@@ -1,5 +1,22 @@
 <?php
 session_start();
+
+session_start();
+include("includes/header.php");
+if (isset($_SESSION['user'])) {
+  if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
+  } else {
+    $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+    header('location:../../login.php');
+  }
+} else {
+  $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+  header('location:../../login.php');
+}
+
+require_once("../core/connection.php");
+require_once("../core/validation_functions.php");
+
 include("includes/header.php");
 ?>
 

@@ -6,11 +6,11 @@ if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
     } else {
         $_SESSION['failure_message'] = "You don't have permissions to view this page.";
-        header('Location: http://localhost/login.php');
+        header('location:../../login.php');
     }
 } else {
     $_SESSION['failure_message'] = "You don't have permissions to view this page.";
-    header('Location: http://localhost/login.php');
+    header('location:../../login.php');
 }
 
 

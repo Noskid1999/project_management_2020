@@ -3,11 +3,14 @@ session_start();
 include("includes/header.php");
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
+        $user = $_SESSION['user'];
     } else {
-        // header('location:../login.php');
+        $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+        header('location:../../login.php');
     }
 } else {
-    // header('location:../login.php');
+    $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+    header('location:../../login.php');
 }
 
 require_once("../core/connection.php");
@@ -79,10 +82,12 @@ require_once("../core/validation_functions.php");
                             $sql = "SELECT 
                                         * 
                                     FROM 
-                                        product p, product_type pt, shop s 
+                                        product p, product_type pt, shop s,trader_type tt
                                     WHERE 
                                         p.Product_type_id = pt.Product_type_id AND 
-                                        pt.Shop_id = s.Shop_id";
+                                        pt.Shop_id = s.Shop_id AND
+                                        s.Trader_type_id = tt.Trader_type_id
+                                        AND tt.Trader_id = $user[TRADER_ID]";
                             $res = $db->execFetchAll($sql, "SELECT shops");
                             if (count($res) > 0) {
                                 foreach ($res as $shop) {
@@ -91,7 +96,7 @@ require_once("../core/validation_functions.php");
                                     echo ("<td>" . $shop['PRODUCT_NAME'] . "</td>");
                                     echo ("<td>" . $shop['PRODUCT_TYPE'] . "</td>");
                                     echo ("<td>" . $shop['PRODUCT_DESCRIPTION'] . "</td>");
-                                    echo ("<td>€" . $shop['PRODUCT_PRICE'] . "</td>");
+                                    echo ("<td>£" . $shop['PRODUCT_PRICE'] . "</td>");
                                     echo ("<td>" . $shop['QUANTITY_PER_ITEM'] . "</td>");
                                     echo ("<td>" . $shop['STOCK_AVAILABLE'] . "</td>");
                                     echo ("<td>" . $shop['MIN_ORDER'] . "</td>");

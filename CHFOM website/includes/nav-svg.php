@@ -4,7 +4,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="/invoice.php">
+    <a class="nav-link" href="/basket.php">
         <?php echo file_get_contents("public/img/svg/cart.svg"); ?>
     </a>
 </li>
@@ -21,7 +21,7 @@
     </a>
 
     <div class="dropdown-menu" style="right:0;left:auto;" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/cart.php">Cart</a>
+        <a class="dropdown-item" href="/basket.php">Cart</a>
         <a class="dropdown-item" href="/customer-profile.php">Profile</a>
         <div class="dropdown-divider"></div>
         <?php

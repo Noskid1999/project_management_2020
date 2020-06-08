@@ -4,10 +4,12 @@ include("includes/header.php");
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user']['USER_TYPE'] == "TRADER") {
     } else {
-        // header('location:../login.php');
+        $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+        header('location:../../login.php');
     }
 } else {
-    // header('location:../login.php');
+    $_SESSION['failure_message'] = "You don't have permissions to view this page.";
+    header('location:../../login.php');
 }
 
 require_once("../core/connection.php");

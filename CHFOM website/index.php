@@ -133,7 +133,7 @@
                         <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">
@@ -146,7 +146,7 @@
                         <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">
@@ -159,7 +159,7 @@
                         <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">
@@ -173,7 +173,7 @@
                         <img class=" card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">
@@ -187,7 +187,7 @@
                         <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">
@@ -200,7 +200,7 @@
                         <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>€10</b></p>
+                            <p class="card-text"><b>£10</b></p>
                         </div>
                         <div class="hidden-card-body-container">
                             <div class="hidden-card-body">

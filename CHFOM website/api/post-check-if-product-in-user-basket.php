@@ -24,6 +24,7 @@ $sql = "SELECT * FROM basket_product
             SELECT Basket_id
             FROM basket
             WHERE Customer_id = $customer_id AND ROWNUM=1
+            AND Trx_completed = 'N'
         )";
 $res = $db->execFetchAll($sql, "Get Product from basket");
 print_r(json_encode($res));

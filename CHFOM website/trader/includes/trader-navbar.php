@@ -6,7 +6,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" /></div>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="text-small nav-link " href="#">Sign out</a>
+        <a class="text-small nav-link " href="../../core/session_end.php">Sign out</a>
       </li>
     </ul>
   </nav>

@@ -66,7 +66,7 @@ include("includes/header.php");
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0 mt-1">
                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <span class="filter-text">Brand</span>
+                    <span class="filter-text">Product Type</span>
                     <span class="filter-plus">+</span>
                   </button>
                 </h5>
@@ -76,20 +76,23 @@ include("includes/header.php");
                 <div class="card-body">
                   <form action="#">
                     <?php
-                    $brand = "Butcher";
-                    echo ("
-                    <p>
-                    <label>
-                      <input type='checkbox' class='checkbox_selector brand' value='$brand'/>
-                      <span>$brand</span>
-                    </label>
-                  </p>");
+                    $sql_product_types = "SELECT * FROM PRODUCT_TYPE";
+                    $res = $db->execFetchAll($sql_product_types, "SELECT product_type");
+                    foreach ($res as $product_type) {
+                      echo ("
+                              <p>
+                              <label>
+                                <input type='checkbox' class='checkbox_selector product_type' value='$product_type[PRODUCT_TYPE_ID]'/>
+                                <span>$product_type[PRODUCT_TYPE]</span>
+                              </label>
+                            </p>");
+                    }
                     ?>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header" id="headingTwo">
                 <h5 class="mb-0 mt-1">
                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -144,7 +147,7 @@ include("includes/header.php");
                   </form>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -172,6 +175,7 @@ include("includes/header.php");
   <script src="public/js/others/jquery-ui.js"></script>
   <script src="public/js/shop.js"></script>
   <script src="public/js/search.js"></script>
+
 </body>
 <?php
 @include("includes/footer.php");

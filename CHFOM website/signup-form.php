@@ -165,11 +165,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ));
                     if ($res['success']) {
                         if ($trader_check == "true") {
+                            echo "Hello";
                             $trader_id = $res['data']['trader_id'];
-                            $sql = "INSERT INTO trader_type(TRADER_ID, TYPE, DESCRIPTION) VALUES ($trader_id,'$trader_type','$trader_description')";
+                            $sql = "INSERT INTO trader_type(TRADER_ID, TRADER_TYPE, DESCRIPTION) VALUES ($trader_id,'$trader_type','$trader_description')";
                             $response = $db->execute($sql, "INSERT trader type");
                             $res['success'] = $response['success'];
                         }
+                    }else{
+                        $failure_message = "Failure to insert trader";
                     }
                 }
                 if ($res['success']) {

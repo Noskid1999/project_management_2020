@@ -17,6 +17,9 @@ class DBController
    // User: ROOT
    // Password: Test1!
 
+   // Paypal
+   // email:   chfom.pm2020@gmail.com
+   // pwd:     /YcPHu!5z$JERJ&
    /**
     * @var resource The connection resource
     * @access protected
@@ -97,4 +100,6 @@ class DBController
          oci_close($this->conn);
    }
 }
+global $db;
 $db = new DBController("Test", "Dikson");
+$GLOBALS['db'] = $db;
