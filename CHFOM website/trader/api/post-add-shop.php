@@ -17,7 +17,8 @@ require_once("../../core/connection.php");
 require_once("../../core/validation_functions.php");
 
 $shop = $_POST;
-$sql = "INSERT INTO SHOP(TRADER_TYPE_ID, SHOP_NAME, SHOP_DESCRIPTION) VALUES (" . $shop['trader-type-id'] . ", '" . $shop['shop-name'] . "', '" . $shop['shop-description'] . "')";
+$shop_description = $shop['shop-description'];
+$sql = "INSERT INTO SHOP(TRADER_TYPE_ID, SHOP_NAME, SHOP_DESCRIPTION) VALUES (" . $shop['trader-type-id'] . ", '" . $shop['shop-name'] . "', '" . $shop_description . "')";
 $res = $db->execute($sql, "INSERT shop");
 if ($res['success']) {
     $_SESSION['add-shop-success'] = true;

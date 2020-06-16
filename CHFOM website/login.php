@@ -41,12 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION['failure_message'] = "Please wait for approval from our admins.";
                                     $valid = false;
                                 }
+                                header("refresh:5;url=trader/trader-products.php");
                             }
                         } else if ($user['USER_TYPE'] == "ADMIN") {
                             $sql = "SELECT ADMIN_ID FROM ADMIN WHERE USER_ID = " . $user['USER_ID'] . " AND ROWNUM = 1 ORDER BY ADMIN_ID DESC";
                             $res = $db->execFetchAll($sql, "SELECT admin_id");
                             if (count($res) > 0) {
                                 $user['ADMIN_ID'] = $res[0]['ADMIN_ID'];
+                                header("refresh:5;url=admin/admin-trader.php");
                             }
                         }
                     } else {
@@ -64,7 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($valid) {
             $_SESSION["user"] = $user;
-            $_SESSION['success_message'] = "Successfully logged in";
+                $_SESSION['success_message'] = "Successfully logged in";
+            if ($_SESSION['user']['USER_TYPE'] != "CUSTOMER") {
+                $_SESSION['success_message'] = "Successfully logged in. Redirecting in 5 seconds.";
+            } else {
+                $_SESSION['success_message'] = "Successfully logged in";
+            }
         }
     }
 }

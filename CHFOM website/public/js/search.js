@@ -42,6 +42,15 @@ $("#search_param").on("input", function (e) {
   };
   create_filter_output_search(payload);
 });
+$(".search-modal").on("shown.bs.modal", function () {
+  $("#search_param").trigger("focus");
+});
+
+// Handling card click
+$(document).on("click", ".card[data-product-id]", function (e) {
+  var product_id = e.currentTarget.dataset.productId;
+  window.location = "./indv-product.php?product_id=" + product_id;
+});
 function create_filter_output_search(payload) {
   // $(".loading").removeClass("d-none");
   $.ajax({

@@ -7,7 +7,7 @@
                         <img src="public/img/logo/CHFOM logo with Text.png" alt="" style="height: 60px;">
                     </div>
                     <div class="short-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in mi vitae tortor placerat lacinia.</p>
+                        <p>CHFOM is an online marketplace where we intend to supply quality products from our local traders. We deal with multiple traders and provide our buyers with a variety of fresh produce from the local farm. </p>
                     </div>
                     <div class="row">
                         <div class="col-5">
@@ -28,19 +28,16 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <a href="#">Home</a>
+                            <a href="index.php">Home</a>
                         </div>
                         <div class="col-12">
-                            <a href="#">Pages</a>
+                            <a href="customer-profile.php">Profile</a>
                         </div>
                         <div class="col-12">
-                            <a href="#">Category</a>
+                            <a href="shop.php">Shop</a>
                         </div>
                         <div class="col-12">
-                            <a href="#">Shop</a>
-                        </div>
-                        <div class="col-12">
-                            <a href="#">About Us</a>
+                            <a href="about-us.php">About Us</a>
                         </div>
                     </div>
                 </div>
@@ -55,7 +52,9 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="col-10">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                            108  Caerfai Bay Road,<br>
+                            TETNEY LOCK, <br>
+                            United Kingdom
                         </div>
                     </div>
                     <div class="row">
@@ -63,7 +62,7 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="col-10">
-                            123456789
+                            079 0763 1348
                         </div>
                     </div>
                     <div class="row">
@@ -71,7 +70,7 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="col-10">
-                            test@test.com
+                            chfom.pm2020@gmail.com
                         </div>
                     </div>
                 </div>

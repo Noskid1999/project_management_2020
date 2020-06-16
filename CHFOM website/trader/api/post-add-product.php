@@ -41,7 +41,7 @@ $res = $db->execute($sql, "INSERT product", array(
     array(":product_id", NULL, 50)
 ));
 if ($res['success']) {
-    $_SESSION['add-shop-success'] = true;
+    $_SESSION['add-product-success'] = true;
 
 
     $allowedMimeTypes = explode(',', UPLOAD_ALLOWED_MIME_TYPES);
@@ -82,7 +82,7 @@ if ($res['success']) {
         }
     }
 } else {
-    $_SESSION['add-shop-success'] = false;
+    $_SESSION['add-product-success'] = false;
 }
 
-// header("Location:../trader-products.php");
+header("Location:../trader-add-products.php");

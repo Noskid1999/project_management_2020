@@ -92,34 +92,37 @@ include("includes/header.php");
                 </div>
               </div>
             </div>
-            <!-- <div class="card">
+            <div class="card">
               <div class="card-header" id="headingTwo">
-                <h5 class="mb-0 mt-1">
-                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <span class="filter-text">Category</span>
-                    <span class="filter-plus">+</span>
-                  </button>
+
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  <span class="filter-text">Shop</span>
+                  <span class="filter-plus">+</span>
+                </button>
                 </h5>
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
                   <form action="#">
                     <?php
-                    $category = "Male";
-                    echo ("
-                    <p>
-                    <label>
-                      <input type='checkbox' class='checkbox_selector category' value = '$category'/>
-                      <span>$category</span>
-                    </label>
-                  </p>");
+                    $sql_shop = "SELECT * FROM SHOP";
+                    $res = $db->execFetchAll($sql_shop, "SELECT shop");
+                    foreach ($res as $shop) {
+                      echo ("
+                              <p>
+                              <label>
+                                <input type='checkbox' class='checkbox_selector shop' value='$shop[SHOP_ID]'/>
+                                <span>$shop[SHOP_NAME]</span>
+                              </label>
+                            </p>");
+                    }
 
                     ?>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header" id="headingThree">
                 <h5 class="mb-0 mt-1">
                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

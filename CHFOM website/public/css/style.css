@@ -20,3 +20,6 @@
 svg {
   overflow: visible;
 }
+body{
+  overflow-x: hidden;
+}

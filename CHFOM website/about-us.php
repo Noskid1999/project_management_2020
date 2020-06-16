@@ -42,19 +42,17 @@
                         <!-- Tab panes-->
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tabs-1-1">
-                                <p>Cum nomen prarere, omnes peses amor pius, rusticus racanaes. Ubi est mirabilis gemna? Cum gabalium velum, omnes fugaes</p>
-                                <p>Ubi est peritus devatio? A falsis, adelphis peritus apolloniates. Est raptus clabulare, cesaris. Cum pulchritudine manducare, omnes genetrixes captis bassus</p>
+                                <p>At CHFOM, we provide both customers and traders with a convenient shopping experience. </p>
+                                <p>We wish to help local traders of CleckHuddersFax with an online platform to widen their business along with serving the customers with fresh local produce. </p>
                             </div>
                             <div class="tab-pane fade" id="tabs-1-2">
-                                <p>Vae. Dexter fiscina aliquando vitares animalis est. Nunquam convertam bulla. Cum pars prarere, omnes seculaes</p>
-                                <p>Navis dexter historia est. Luba, homo, et indictio. Emeritis eposs ducunt ad animalis. Cum solem assimilant, omnes byssuses vitare clemens, secundus nixuses.</p>
+                                <p>Our mission is to provide existing traders with the opportunity to enhance their business as well as introducing the platform to new traders who want to start their business.</p>
                             </div>
                             <div class="tab-pane fade" id="tabs-1-3">
-                                <p>A falsis, historia primus gallus. Est bassus tabes, cesaris. Gallus de mirabilis agripeta, locus mens! Primus ratione</p>
-                                <p>Cur eleates accelerare? Heu. Ecce, superbus onus! Demolitione secundus homo est. Cum cacula congregabo, omnes coordinataees acquirere dexter, flavum galataees.</p>
+                                <p>We aim to provide the customers with fresh and seasonal products through this accessible store where they can shop from the comfort of their homes.</p>
                             </div>
                         </div>
-                    </div><a class="btn btn-lg btn-success" href="#">Read more</a>
+                    </div>
                 </div>
                 <div class="col-lg-7 mb-3">
                     <div id="few-words-carousel" class="carousel slide" data-ride="carousel">

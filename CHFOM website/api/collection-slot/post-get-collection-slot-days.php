@@ -9,9 +9,10 @@ if (isset($_SESSION['user']) && empty($_POST)) {
     // header('location:../login.php');
 }
 
+// Import required DB controller and validations functions
 require_once("../../core/connection.php");
 require_once("../../core/validation_functions.php");
-
+// SELECT all the available collection slots greater than 1 day 
 $sql = "SELECT CAST(TRUNC(START_TIME) AS DATE) start_time
         FROM (
             SELECT *

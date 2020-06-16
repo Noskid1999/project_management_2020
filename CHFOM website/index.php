@@ -1,5 +1,7 @@
 <?php
 @include("includes/header.php");
+require_once("core/connection.php");
+require_once("core/validation_functions.php");
 ?>
 
 <body>
@@ -64,7 +66,7 @@
                     <div class="col-lg-6 description-container">
                         <h4>A Few Words About Our Store</h4>
                         <h1>ABOUT US</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu tristique elit, et vehicula nulla. Fusce arcu tellus, convallis facilisis sem eu, ultrices faucibus massa. Vivamus sollicitudin lectus consequat, pretium ligula ut, malesuada est. Vestibulum aliquet neque ac ex hendrerit vulputate sollicitudin eu nunc</p>
+                        <p>CHFOM is an online marketplace where we intend to supply quality products from our local traders. We deal with multiple traders and provide our buyers with a variety of fresh produce from the local farm. </p>
                     </div>
                 </div>
             </div>
@@ -81,7 +83,7 @@
                             </div>
                             <h4 class="feature-card-title">QUALITY PRODUCTS</h4>
                             <p class="feature-card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu tristique elit, et vehicula nulla. Fusce arcu tellus, convallis facilisis sem eu, ultrices faucibus massa.
+                                All the products are organic and produced locally, exclusively imported to our online store from the sellers.
                             </p>
                         </div>
                     </div>
@@ -90,9 +92,10 @@
                             <div class="feature-card-header">
                                 <?php echo file_get_contents("public/img/svg/money.svg"); ?>
                             </div>
-                            <h4 class="feature-card-title">QUALITY PRODUCTS</h4>
+                            <h4 class="feature-card-title">EASY PAYMENT</h4>
                             <p class="feature-card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu tristique elit, et vehicula nulla. Fusce arcu tellus, convallis facilisis sem eu, ultrices faucibus massa.
+                                Easily pay for your products with PayPal and choose the time suited for you from the available options.
+
                             </p>
                         </div>
                     </div>
@@ -101,9 +104,9 @@
                             <div class="feature-card-header">
                                 <?php echo file_get_contents("public/img/svg/clock.svg"); ?>
                             </div>
-                            <h4 class="feature-card-title">QUALITY PRODUCTS</h4>
+                            <h4 class="feature-card-title">EASE OF ACCESS</h4>
                             <p class="feature-card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu tristique elit, et vehicula nulla. Fusce arcu tellus, convallis facilisis sem eu, ultrices faucibus massa.
+                                Easily accessible, shop efficiently anytime anywhere, saving your valuable time.
                             </p>
                         </div>
                     </div>
@@ -112,9 +115,9 @@
                             <div class="feature-card-header">
                                 <?php echo file_get_contents("public/img/svg/quality.svg"); ?>
                             </div>
-                            <h4 class="feature-card-title">QUALITY PRODUCTS</h4>
+                            <h4 class="feature-card-title">VARIETY GOODS</h4>
                             <p class="feature-card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu tristique elit, et vehicula nulla. Fusce arcu tellus, convallis facilisis sem eu, ultrices faucibus massa.
+                                Choose products from multiple categories, shop from any place with just few clicks.
                             </p>
                         </div>
                     </div>
@@ -129,86 +132,36 @@
                     <h1>NEW PRODUCTS</h1>
                 </div>
                 <div class="product-card-container">
-                    <div class="card">
-                        <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
+                    <?php
+                    $query = "WITH cte_products AS (
+                        SELECT 
+                            product.*, ROW_NUMBER() OVER (ORDER BY PRODUCT_ADDED_TIME DESC) row_num
+                        FROM 
+                            PRODUCT
+                    )
+                    SELECT * FROM cte_products
+                    WHERE row_num <= 6";
+                    $output ="";
+                    $req_data = $db->execFetchAll($query, "SELECT req products");
+                    if (count($req_data) > 0) {
+                        foreach ($req_data as $product) {
+                            $output .= "<div class='card' data-product-id='$product[PRODUCT_ID]'>
+                        <img class='card-img-top' src='public/img/products/" . $product['PRODUCT_ID'] . "-1.jpg' alt='Card image cap'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>" . $product['PRODUCT_NAME']  . "</h5>
+                            <p class='card-text'><b>£" . $product['PRODUCT_PRICE'] . "</b></p>
                         </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
+                        <div class='hidden-card-body-container'>
+                            <div class='hidden-card-body'>
+                            <a href='/indv-product.php?product_id=" . $product['PRODUCT_ID'] . "' class='btn btn-primary'>" . file_get_contents('public/img/svg/search.svg') . "</a>
+                            
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
-                        </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
-                        </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img class=" card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
-                        </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
-                        </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="public/img/products/product-1-220x160.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">BANANA</h5>
-                            <p class="card-text"><b>£10</b></p>
-                        </div>
-                        <div class="hidden-card-body-container">
-                            <div class="hidden-card-body">
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/search.svg"); ?></a>
-                                <a href="#" class="btn btn-primary"><?php echo file_get_contents("public/img/svg/cart.svg"); ?></a>
-                            </div>
-                        </div>
-                    </div>
+                        </div>";
+                        }
+                    }
+                    echo $output;
+                    ?>
 
                 </div>
 

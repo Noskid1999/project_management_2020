@@ -15,7 +15,7 @@ class DBController
 
    // Apex Admin
    // User: ROOT
-   // Password: Test1!
+   // Password: Test!123
 
    // Paypal
    // email:   chfom.pm2020@gmail.com

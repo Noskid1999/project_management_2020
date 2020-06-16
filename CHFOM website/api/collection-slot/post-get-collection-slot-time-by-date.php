@@ -13,8 +13,10 @@ if (isset($_SESSION['user']) && empty($_POST)) {
     // header('location:../login.php');
 }
 
+// Import required DB controller and validations functions
 require_once("../../core/connection.php");
 require_once("../../core/validation_functions.php");
+// Get collection slots as per the given date
 $sql = "SELECT Collection_slot_id,
             TO_CHAR(START_TIME,'HH24:MI:SS') || '-' ||TO_CHAR(END_TIME,'HH24:MI:SS') time,
             MAXIMUM_ORDERS,

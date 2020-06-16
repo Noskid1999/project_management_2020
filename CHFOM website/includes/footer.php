@@ -5,6 +5,7 @@
 <script src="public/js/others/jquery-ui.js"></script> -->
 <script src="public/js/others/materialize.min.js"></script>
 <script src="public/js/script.js"></script>
+  <script src="public/js/search.js"></script>
 
 </body>
 

@@ -132,31 +132,44 @@ if (isset($_GET['product_id'])) {
                                 <div class="col-4">
                                     <p class="mb-0">Product Type: </p>
                                 </div>
-                                <div class="col-6"><span class=" text-dark">Lorem</span></div>
+                                <div class="col-6"><span class=" text-dark"><?php echo $product['PRODUCT_TYPE']; ?></span></div>
                             </div>
                         </div>
                         <div class="col-12 px-0">
                             <div class="row">
                                 <div class="col-4">
-                                    <p class="mb-0">Trader Type: </p>
+                                    <p class="mb-0">Shop: </p>
                                 </div>
-                                <div class="col-6"><span class=" text-dark"><?php echo $product['PRODUCT_TYPE']; ?></span></div>
+                                <div class="col-6"><span class=" text-dark"><?php echo $product['SHOP_NAME']; ?></span></div>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-2 px-0">
-                            <input type="text" class=" form-control" id="product-amount-input" value="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-max="10" data-min="1">
+                            <input type="text" class=" form-control" id="product-amount-input" value="<?php
+                                                                                                        if (($product['STOCK_AVAILABLE'] - 1) > 0) {
+                                                                                                            echo 1;
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        } ?>" onkeypress='return event.charCode >= 48 && event.charCode <= 57' data-max="<?php echo min(($product['STOCK_AVAILABLE'] - 1), $product['MAX_ORDER']); ?>" data-min="<?php echo min(($product['STOCK_AVAILABLE'] - 1), 1); ?>">
+
+
                         </div>
                         <div class="col-auto position-relative">
                             <span id="add-product-amount">+</span>
                             <span id="subtract-product-amount">-</span>
                         </div>
+                        <div class="col-12">
+                            <?php
+                            if (($product['STOCK_AVAILABLE'] - 1) <= 0) { ?>
+                                <small class="text-danger">Out Of Stock!!!!!!!!</small>
+                            <?php } ?>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <?php
                         if (isset($_SESSION['user'])) {
-                            if (!empty($_SESSION['user']) && $_SESSION['user']['USER_TYPE'] == "CUSTOMER") {
+                            if (!empty($_SESSION['user']) && $_SESSION['user']['USER_TYPE'] == "CUSTOMER" && ($product['STOCK_AVAILABLE'] - 1) > 0) {
                         ?>
 
                                 <div class="col-12 px-0">
@@ -208,6 +221,10 @@ if (isset($_GET['product_id'])) {
                 <div class="col-12">
                     <h4 class="h4">Product Details</h4>
                     <p><?php echo $product['PRODUCT_DESCRIPTION']; ?></p>
+                </div>
+                <div class="col-12">
+                    <h4 class="h4">Allergy Information</h4>
+                    <p><?php echo $product['ALLERGY_INFORMATION']; ?></p>
                 </div>
             </div>
         </div>
@@ -287,8 +304,6 @@ if (isset($_GET['product_id'])) {
     <script>
         $(document).ready(() => {
             var req_data = $("form#add-product-to-basket");
-            console.log(req_data);
-
             $.ajax({
                 type: "POST",
                 url: "./api/post-check-if-product-in-user-basket.php",

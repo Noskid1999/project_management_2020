@@ -13,6 +13,7 @@ if (isset($_SESSION['user']) && !empty($_POST)) {
     // header('location:../login.php');
 }
 
+// Import required DB controller, validations functions and send mail functions
 require_once("../../core/connection.php");
 require_once("../../core/validation_functions.php");
 require_once("../../core/send-mail.php");

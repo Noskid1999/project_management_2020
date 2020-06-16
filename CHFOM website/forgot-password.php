@@ -1,11 +1,13 @@
 <?php
 session_start();
+// Import required DB controller and validations functions
 require_once('core/validation_functions.php');
 require_once('core/connection.php');
 $valid = true;
 $password = $cpassword = '';
 $error = array();
 $success_message = $failure_message = "";
+// If get requirest is made
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET['user_id'])) {
         $user_id = $_GET['user_id'];

@@ -15,9 +15,11 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
     $req = 'cmd=_notify-synch';
 
     $tx_token = $_GET['tx'];
+    // Auth token for the PDT
     $auth_token = "pFgztjlwoshJ-SWKu8tMsxMwwHutoqmH7l_4C-3R83snPJUtx52Zomg1UI8";
     $req .= "&tx=$tx_token&at=$auth_token";
 
+    // make a POST request to the Paypal server by the TX get query to get the full transaction details
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://$pp_hostname/cgi-bin/webscr");
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -41,28 +43,12 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                 $temp = explode("=", $lines[$i], 2);
                 $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
             }
-            // check the payment_status is Completed
-            // check that txn_id has not been previously processed
-            // check that receiver_email is your Primary PayPal email
-            // check that payment_amount/payment_currency are correct
-            // process payment
-            // $firstname = $keyarray['first_name'];
-            // $lastname = $keyarray['last_name'];
-            // $itemname = $keyarray['item_name'];
-            // $amount = $keyarray['payment_gross'];
-
-            // echo ("<p><h3>Thank you for your purchase!</h3></p>");
-
-            // echo ("<b>Payment Details</b><br>\n");
-            // echo ("<li>Name: $firstname $lastname</li>\n");
-            // echo ("<li>Item: $itemname</li>\n");
-            // echo ("<li>Amount: $amount</li>\n");
-            // echo ("");
             // process the order
+            // Create a new invoice and insert all the individual products in the payment_detail table 
             $custom_data = json_decode($keyarray['custom'], true);
             $sql = "INSERT INTO INVOICE(Discount_id,INVOICE_TIME,TOTAL_AMOUNT,COLLECTION_SLOT_ID) 
-        VALUES (NULL,CURRENT_TIMESTAMP,$keyarray[mc_gross],$custom_data[collection_slot]) 
-        RETURNING INVOICE_ID INTO :invoice_id";
+                    VALUES (NULL,CURRENT_TIMESTAMP,$keyarray[mc_gross],$custom_data[collection_slot]) 
+                    RETURNING INVOICE_ID INTO :invoice_id";
             $res = $db->execute($sql, "INSERT into invoice", array(
                 array(":invoice_id", NULL, 50)
             ));
@@ -71,7 +57,7 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                 $update_sql = "UPDATE basket_product SET TRX_COMPLETED = 'Y' WHERE Basket_product_id in (";
                 $invoice_id = $res['data']['invoice_id'];
                 $sql = "INSERT ALL ";
-                for ($i = 1; $i < (1   + 1); $i++) {
+                for ($i = 1; $i < ($keyarray['num_cart_items'] + 1); $i++) {
                     // Get indv basket product id
                     $basket_product_id = $keyarray['item_number' . $i];
                     // Add to update sql
@@ -90,6 +76,8 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                 file_put_contents('log2.txt', $update_sql);
 
                 $res = $db->execute($sql, "INSERT INTO payment_detail");
+                // echo $update_sql;
+                // echo $sql;
                 if ($res['success']) {
                     $res = $db->execute($update_sql, "UPDATE basket_product");
                 }
@@ -128,6 +116,7 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                     );
                     send_mail($data);
                 }
+                // Send receipt to trader
                 foreach ($trader_list as $email) {
                     $data = array(
                         'email_address' => $email['EMAIL'],
@@ -137,6 +126,19 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
                     );
                     send_mail($data);
                 }
+                $sql = "SELECT Email FROM users WHERE User_type = 'ADMIN' ";
+                $admin_list = $db->execFetchAll($sql, "GET admin list");
+                // Send the receipt to the admin as received by the customer
+                foreach ($admin_list as $email) {
+                    $data = array(
+                        'email_address' => $email['EMAIL'],
+                        'mail_type' => 'INVOICE_CUSTOMER',
+                        'invoice_id' =>  $invoice_id
+                    );
+                    send_mail($data);
+                }
+
+                header("location:http://localhost:80");
             } else if (strcmp($lines[0], "FAIL") == 0) {
                 // log for manual investigation
             }
@@ -145,11 +147,6 @@ if (isset($_GET['tx']) && ($_GET['tx']) != null && ($_GET['tx']) != "") {
 } else {
     exitCode();
 }
-$test = '';
-foreach ($keyarray as $key => $value) {
-    $test .= "$key=$value\n";
-}
-file_put_contents("log3.txt", $test);
 
 
 function exitCode()
@@ -157,4 +154,3 @@ function exitCode()
     die("Error");
     //exit with error message
 }
-exit;

@@ -12,43 +12,38 @@ if (!isset($sub_show)) {
 <nav class="col-md-2 d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
     <div id="accordion">
-      <!-- <div class="card">
+      <div class="card">
         <div class="card-header" id="prodcutsHeader">
           <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#products" aria-expanded="<?php if ($show == 'products') {
-                                                                                                          echo "true";
-                                                                                                        } else {
-                                                                                                          echo "false";
-                                                                                                        } ?>" aria-controls="products">
-              <a class="nav-link <?php if ($show == 'products') {
+            <button class="btn btn-link" data-toggle="collapse" data-target="#trader" aria-expanded="<?php if ($show == 'trader') {
+                                                                                                        echo "true";
+                                                                                                      } else {
+                                                                                                        echo "false";
+                                                                                                      } ?>" aria-controls="trader">
+              <a class="nav-link <?php if ($show == 'trader') {
                                     echo "active";
-                                  } ?>" href="./trader-products.php">
+                                  } ?>" href="./admin-trader.php">
                 <span data-feather="shopping-cart"></span>
-                Products
+                Trader
               </a>
             </button>
           </h5>
         </div>
-        <div id="products" class="collapse <?php if ($show == 'products') {
-                                              echo "show";
-                                            } ?>" aria-labelledby="productsHeader" data-parent="#accordion">
+        <div id="trader" class="collapse <?php if ($show == 'trader') {
+                                            echo "show";
+                                          } ?>" aria-labelledby="traderHeader" data-parent="#accordion">
           <div class="card-body">
             <div class="list-group">
-              <a href="./trader-products.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'products-details') {
-                                                                                                echo "active";
-                                                                                              } ?>">
-                Products Details
-              </a>
-              <a href="./trader-add-products.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'add-product') {
-                                                                                                    echo "active";
-                                                                                                  } ?>">
-                Add Product
+              <a href="./admin-trader.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'trader-details') {
+                                                                                            echo "active";
+                                                                                          } ?>">
+                Trader Details
               </a>
             </div>
           </div>
         </div>
-      </div> -->
-      
+      </div>
+
       <div class="card">
         <div class="card-header" id="traderTypeHeader">
           <h5 class="mb-0">
@@ -59,7 +54,7 @@ if (!isset($sub_show)) {
                                                                                                           } ?>" aria-controls="trader-type">
               <a class="nav-link <?php if ($show == 'trader-type') {
                                     echo "active";
-                                  } ?>" href="./trader-type.php">
+                                  } ?>" href="./admin-trader-type.php">
                 <span data-feather="shopping-cart"></span>
                 Trader Type
               </a>
@@ -71,9 +66,9 @@ if (!isset($sub_show)) {
                                               } ?>" aria-labelledby="traderTypeHeader" data-parent="#accordion">
           <div class="card-body">
             <div class="list-group">
-              <a href="./trader-type.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'trader-type-details') {
-                                                                                            echo "active";
-                                                                                          } ?>">
+              <a href="./admin-trader-type.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'trader-type-details') {
+                                                                                                  echo "active";
+                                                                                                } ?>">
                 Trader Type Details
               </a>
             </div>
@@ -81,67 +76,36 @@ if (!isset($sub_show)) {
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="shopsHeader">
+        <div class="card-header" id="collectionSlotHeader">
           <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#shops" aria-expanded="<?php if ($show == 'shops') {
-                                                                                                      echo "true";
-                                                                                                    } else {
-                                                                                                      echo "false";
-                                                                                                    } ?>" aria-controls="shops">
-              <a class="nav-link <?php if ($show == 'shops') {
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collectionSlot" aria-expanded="<?php if ($show == 'collectionSlot') {
+                                                                                                                echo "true";
+                                                                                                              } else {
+                                                                                                                echo "false";
+                                                                                                              } ?>" aria-controls="collectionSlot">
+              <a class="nav-link <?php if ($show == 'collectionSlot') {
                                     echo "active";
-                                  } ?>" href="./trader-shops.php">
-                <span data-feather="layers"></span>
-                Shops
-              </a>
-            </button>
-          </h5>
-        </div>
-        <div id="shops" class="collapse <?php if ($show == 'shops') {
-                                          echo "show";
-                                        } ?>" aria-labelledby="shopsHeader" data-parent="#accordion">
-          <div class="card-body">
-            <div class="list-group">
-              <a href="./trader-shops.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'shop-details') {
-                                                                                            echo "active";
-                                                                                          } ?>">
-                Shops Details
-              </a>
-              <a href="./trader-add-shop.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'add-shop') {
-                                                                                                echo "active";
-                                                                                              } ?>">
-                Add Shops
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="profileHeader">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#profile" aria-expanded="<?php if ($show == 'profile') {
-                                                                                                        echo "true";
-                                                                                                      } else {
-                                                                                                        echo "false";
-                                                                                                      } ?>" aria-controls="profile">
-              <a class="nav-link <?php if ($show == 'profile') {
-                                    echo "active";
-                                  } ?>" href="./trader-profile.php">
+                                  } ?>" href="./admin-collection-slot.php">
                 <span data-feather="user"></span>
-                Profile
+                Collection Slot
               </a>
             </button>
           </h5>
         </div>
-        <div id="profile" class="collapse <?php if ($show == 'profile') {
-                                            echo "show";
-                                          } ?>" aria-labelledby="profileHeader" data-parent="#accordion">
+        <div id="collectionSlot" class="collapse <?php if ($show == 'collectionSlot') {
+                                                    echo "show";
+                                                  } ?>" aria-labelledby="collectionSlotHeader" data-parent="#accordion">
           <div class="card-body">
             <div class="list-group">
-              <a href="./trader-profile.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'profile-details') {
-                                                                                              echo "active";
-                                                                                            } ?>">
-                Profile Information
+              <a href="./admin-collection-slot.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'collection-slot-details') {
+                                                                                                      echo "active";
+                                                                                                    } ?>">
+                Collection Slot Details
+              </a>
+              <a href="./admin-add-collection-slot.php" class="list-group-item list-group-item-action  <?php if ($sub_show == 'add-collection-slot') {
+                                                                                                          echo "active";
+                                                                                                        } ?>">
+                Add Collection Slots
               </a>
             </div>
           </div>

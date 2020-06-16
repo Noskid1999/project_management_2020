@@ -9,6 +9,7 @@ if (!empty($_POST)) {
     // header('location:../login.php');
 }
 
+// Import required DB controller and validations functions
 require_once("../../core/connection.php");
 require_once("../../core/validation_functions.php");
 $review = $_POST;

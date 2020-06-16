@@ -13,6 +13,7 @@ if (isset($_SESSION['user'])) {
     header('location:../../login.php');
 }
 
+// Import required DB controller and validations functions
 require_once("../core/connection.php");
 require_once("../core/validation_functions.php");
 ?>
@@ -134,6 +135,7 @@ include_once("includes/navbar.php");
     feather.replace();
 </script>
 <script>
+    // Approval / Rejection button listener
     $(".approve-trader-type-btn").on("click", function(event) {
         var trader_type_id = event.target.dataset.trader_type_id;
         var admin_id = event.target.dataset.admin_id;

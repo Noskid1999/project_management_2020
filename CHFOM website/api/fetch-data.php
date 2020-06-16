@@ -3,27 +3,31 @@ require_once("../core/connection.php");
 require_once("../core/validation_functions.php");
 if (isset($_POST['action'])) {
     // Set initial query
-    $query = "SELECT * FROM product WHERE 1=1 ";
-
+    $query = "SELECT p.*,pt.Product_type,pt.Product_type_description,pt.Shop_id FROM product p, product_type pt WHERE 1=1 AND p.Product_type_id = pt.Product_type_id ";
     // Filter for search
     if (isset($_POST['search_param'])) {
         $search_param = strtoupper(clean_input($_POST['search_param']));
-        $query .= " AND (UPPER(PRODUCT_NAME) LIKE '%$search_param%' OR UPPER(PRODUCT_DESCRIPTION) LIKE '%$search_param%')";
+        $query .= " AND (UPPER(p.PRODUCT_NAME) LIKE '%$search_param%' OR UPPER(p.PRODUCT_DESCRIPTION) LIKE '%$search_param%')";
     }
     // Fiter for product type
     if (isset($_POST['product_type'])) {
         $product_types = implode("','", $_POST['product_type']);
-        $query .= " AND PRODUCT_TYPE_ID IN ('$product_types')";
+        $query .= " AND p.PRODUCT_TYPE_ID IN ('$product_types')";
+    }
+    // Filter for shop
+    if (isset($_POST['shop'])) {
+        $shop = implode("','", $_POST['shop']);
+        $query .= " AND pt.SHOP_ID IN ('$shop')";
     }
     // Filter for Min price
     if (isset($_POST['minimum_price']) && !empty($_POST['minimum_price'])) {
         $min_price = $_POST['minimum_price'];
-        $query .= " AND PRODUCT_PRICE >= $min_price";
+        $query .= " AND p.PRODUCT_PRICE >= $min_price";
     }
     // Fiter for Max price
     if (isset($_POST['maximum_price']) && !empty($_POST['maximum_price'])) {
         $max_price = $_POST['maximum_price'];
-        $query .= " AND PRODUCT_PRICE <= $max_price";
+        $query .= " AND p.PRODUCT_PRICE <= $max_price";
     }
     // Check if offset if present
     if(isset($_POST['offset']) && !empty($_POST['offset'])){
@@ -41,7 +45,7 @@ if (isset($_POST['action'])) {
         $script .= "var total_num_data = $total_count;
                     $('#query-results-count').html('Total Results : $total_count');            
         ";
-        $filter_count = 20;
+        $filter_count = 48;
         // For offset / Pagination of the products page
         if (isset($_POST['offset'])) {
             $offset = (int) $_POST['offset'];
@@ -55,15 +59,24 @@ if (isset($_POST['action'])) {
         $script .= "</script>";
         echo $script;
 
+        $final_query = "SELECT * FROM (" . $query;
+        $final_query = "select * 
+        from ( select /*+ FIRST_ROWS(n) */ 
+        a.*, ROWNUM rnum 
+            from ( $query ) a 
+            where ROWNUM <= ($offset+1)*$filter_count ) t
+      where rnum  >= ($offset*$filter_count)+1";
         // For pagination of the data
-        $query .= " AND ROWNUM >= $offset*$filter_count AND ROWNUM <= ($offset+1)*$filter_count";
+        // $final_query .= " AND ROWNUM <= ($offset+1)*$filter_count ";
         // For sorting of the data
         if (isset($_POST['sort_query'])) {
             $sort_query = $_POST['sort_query'];
-            $query .= " ORDER BY $sort_query";
+            $final_query .= " ORDER BY $sort_query";
         }
-        $output = "";
-        $req_data = $db->execFetchAll($query, "SELECT req products");
+        // $final_query .= " ) WHERE ROWNUM >= $offset*$filter_count";
+
+        $output = "";   
+        $req_data = $db->execFetchAll($final_query, "SELECT req products");
         if (count($req_data) > 0) {
             $product = "test";
             foreach ($req_data as $product) {
@@ -76,11 +89,12 @@ if (isset($_POST['action'])) {
               <div class='hidden-card-body-container'>
                 <div class='hidden-card-body'>
                   <a href='/indv-product.php?product_id=" . $product['PRODUCT_ID'] . "' class='btn btn-primary'>" . file_get_contents('../public/img/svg/search.svg') . "</a>
-                  <a href='#' class='btn btn-primary'>" . file_get_contents('../public/img/svg/cart.svg') . "</a>
+                  
                 </div>
               </div>
             </div>";
             }
+            // <a href='#' class='btn btn-primary'>" . file_get_contents('../public/img/svg/cart.svg') . "</a>
             echo ($output);
         } else {
             echo ("No data found");

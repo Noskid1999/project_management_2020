@@ -1,3 +1,4 @@
+var filter_count = 48;
 function generate_pagination(current_page, total_num_data, page_links = 5) {
   current_page = parseInt(current_page);
   if (total_num_data < 1) {
@@ -15,7 +16,7 @@ function generate_pagination(current_page, total_num_data, page_links = 5) {
 
   var leeway = Math.floor(page_links / 2);
 
-  var total_page = Math.ceil(total_num_data / 48);
+  var total_page = Math.ceil(total_num_data / filter_count);
   var first_page = current_page - leeway;
   var last_page = current_page + leeway;
 
@@ -30,15 +31,15 @@ function generate_pagination(current_page, total_num_data, page_links = 5) {
   if (first_page < 1) {
     first_page = 1;
   }
-  for (i = first_page; i <= last_page; i++) {
+  for (var i = first_page; i <= last_page; i++) {
     if (i == current_page) {
       html +=
-        '<li class="page-item active"><a href="#!" class=" page-link">' +
+        '<li class="page-item page-number active"><a href="#!" class=" page-link">' +
         i +
         "</a></li>";
     } else {
       html +=
-        '<li class="page-item waves-effect"><a href="#!" class=" page-link">' +
+        '<li class="page-item page-number waves-effect"><a href="#!" class=" page-link">' +
         i +
         "</a></li>";
     }
@@ -85,7 +86,8 @@ $(document).ready(function () {
     var action = "fetch_data";
     var product_type = get_filter("product_type");
     var category = get_filter("category");
-    var filter_count = 48;
+    var shop = get_filter("shop");
+    
     var minimum_price = $("#hidden_minimum_price").val();
     var maximum_price = $("#hidden_maximum_price").val();
     var sorting = $("#sel1").val();
@@ -103,6 +105,7 @@ $(document).ready(function () {
       action: action,
       product_type: product_type,
       category: category,
+      shop: shop,
       filter_count: filter_count,
       minimum_price: minimum_price,
       maximum_price: maximum_price,
@@ -116,14 +119,16 @@ $(document).ready(function () {
       $(this).removeClass("active");
     });
     $(this).addClass("active");
-    filter_data(parseInt($(this).text()));
+    filter_data(parseInt($(this).text())-1);
   });
   $(document).on(
     "click",
     "#pagination-container li.pagination-right",
     function () {
       var curr_page = parseInt($("#pagination-container li.active").text()) + 1;
-      filter_data(curr_page);
+      console.log(curr_page-1);
+      
+      filter_data(curr_page-1);
     }
   );
   $(document).on(
@@ -131,7 +136,7 @@ $(document).ready(function () {
     "#pagination-container li.pagination-left",
     function () {
       var curr_page = parseInt($("#pagination-container li.active").text()) - 1;
-      filter_data(curr_page);
+      filter_data(curr_page-1);
     }
   );
   $(".checkbox_selector").click(function () {
@@ -155,10 +160,4 @@ $(document).ready(function () {
       filter_data();
     },
   });
-});
-
-// Handling card click
-$(document).on("click",".card[data-product-id]", function (e) {
-  var product_id = e.currentTarget.dataset.productId;
-  window.location = "./indv-product.php?product_id=" + product_id;
 });

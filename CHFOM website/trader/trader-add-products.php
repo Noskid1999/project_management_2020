@@ -38,6 +38,29 @@ require_once("../core/validation_functions.php");
                 <!-- Actual data shown start -->
                 <main>
                     <h2>Add Product</h2>
+                    <?php
+                    if (isset($_SESSION['add-product-success'])) {
+                        if ($_SESSION['add-product-success']) {
+                            echo ("
+                                    <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                        Product Added successfully
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>");
+                        } else {
+                            echo ("
+                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                Product Added Unsuccessful
+                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>");
+                        }
+
+                        unset($_SESSION['add-product-success']);
+                    }
+                    ?>
                     <div class="container form-container" id="add-product-form-container">
                         <form action="./api/post-add-product.php" method="POST" id="add-product-form" enctype="multipart/form-data">
                             <div class="form-group">
@@ -71,6 +94,7 @@ require_once("../core/validation_functions.php");
                                 <select name="product_type_id" id="product_type_id" class="form-control" required>
                                     <option value="" disabled selected style="color: #80969F;">Select product type</option>
                                 </select>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductType" id="add-product-type-btn">Add Product Type</button>
                             </div>
                             <div class="form-group">
                                 <label for="product_name">Product Name</label>
@@ -112,6 +136,40 @@ require_once("../core/validation_functions.php");
                         </form>
                     </div>
                 </main>
+                <!-- Modal -->
+                <div class="modal fade" id="addProductType" tabindex="-1" role="dialog" aria-labelledby="addProductTypeLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <form action="./api/post-add-product-type.php" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addProductTypeLabel">Add Product Type</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="shop_id">Shop ID</label>
+                                        <input type="text" disabled value="" name="shop_id_shown" id="shop_id_shown" class="form-control">
+                                        <input type="hidden" value="" name="shop_id" id="add_shop_id" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-type">Product Type</label>
+                                        <input type="text" value="" name="product_type" id="product-type" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-type-description">Product Type Description</label>
+                                        <textarea name="product_type_description" id="product-type-description" rows="10" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <!-- Actual data shown end -->
             </main>
         </div>
@@ -130,6 +188,10 @@ require_once("../core/validation_functions.php");
             $(".close i").addClass("d-none");
             $(".close").addClass("left-100");
         }
+
+        $('#addProductType').on('shown.bs.modal', function(e) {
+            console.log(1);
+        })
     </script>
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
@@ -150,8 +212,6 @@ require_once("../core/validation_functions.php");
                 success: function(data) {
 
                     data = JSON.parse(data);
-                    console.log(data);
-
                     var req_str = `<option value="" disabled selected style="color: #80969F;">Select product type</option>`;
                     data.forEach(product_type => {
                         req_str += `<option value="${product_type.PRODUCT_TYPE_ID}">${product_type.PRODUCT_TYPE}</option>`;
@@ -160,6 +220,10 @@ require_once("../core/validation_functions.php");
                     $("#product_type_id").html(req_str);
                 },
             })
+        });
+        $("#add-product-type-btn").on("click", function() {
+            var shop_id = $("#shop_id").val();
+            $("#shop_id_shown,#add_shop_id").val(shop_id);
         });
     </script>
 

@@ -38,6 +38,29 @@ require_once("../core/validation_functions.php");
                 <!-- Actual data shown start -->
                 <main>
                     <h2>Add Shops</h2>
+                    <?php
+                    if (isset($_SESSION['add-shop-success'])) {
+                        if ($_SESSION['add-shop-success']) {
+                            echo ("
+                                    <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                        Shop Added successfully
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>");
+                        } else {
+                            echo ("
+                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                Shop Added Unsuccessful
+                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>");
+                        }
+
+                        unset($_SESSION['add-shop-success']);
+                    }
+                    ?>
                     <div class="container form-container" id="add-shop-form-container">
                         <form action="./api/post-add-shop.php" method="POST" id="add-shop-form">
                             <div class="form-group">
