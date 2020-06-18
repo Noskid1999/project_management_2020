@@ -1,0 +1,33 @@
+FUNCTION user_auth(
+    p_username IN VARCHAR2,
+    p_password IN VARCHAR2
+)
+RETURN BOOLEAN
+AS 
+    v_user_id INT(11);
+    v_user_type VARCHAR2(6);
+    pwd_hash VARCHAR2(64);
+BEGIN
+    select rawtohex(
+    DBMS_CRYPTO.Hash (
+        UTL_I18N.STRING_TO_RAW (p_password, 'AL32UTF8'),
+        2)
+    ) into pwd_hash from dual;
+
+    SELECT User_id,User_type
+    INTO v_user_id, v_user_type
+    FROM users u
+    WHERE upper(EMAIL) = upper(p_username) AND upper(PASSWORD) = upper(pwd_hash) AND IS_VERIFIED = 'Y' AND USER_TYPE IN ('ADMIN','TRADER');
+    IF v_user_type = 'TRADER' THEN
+        SELECT Trader_id
+        INTO v_user_id
+        FROM trader t
+        WHERE USER_ID = v_user_id
+        AND PROPOSAL_ACCEPTED = 'Y';
+    END IF;
+    RETURN TRUE;
+EXCEPTION
+    WHEN NO_DATA_FOUND
+    THEN
+    RETURN FALSE;
+END user_auth;

@@ -1,0 +1,1 @@
+SELECT User_id FROM users WHERE UPPER(Email)=v('APP_USER') AND User_type = 'TRADER';
